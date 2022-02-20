@@ -1,6 +1,5 @@
 from django.contrib import admin
-from apps.Users.models import OCSProfile, OfficerProfile
+from apps.Users.models import Profile
 
 # Register your models here.
-admin.site.register(OCSProfile)
-admin.site.register(OfficerProfile)
+admin.site.register(Profile)

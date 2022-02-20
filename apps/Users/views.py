@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import update_session_auth_hash
-from apps.Users.models import OCSProfile, OfficerProfile
+from apps.Users.models import Profile
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from Core import settings
@@ -40,7 +40,7 @@ def send_activation_email(user, request):
     if not settings.TESTING:
         EmailThread(email).start()
 
-def OfficerRegister(request):
+def Register(request):
     if request.method == 'POST':
         context = {'has_error': False}
         first_name = request.POST['first_name']
@@ -48,25 +48,33 @@ def OfficerRegister(request):
         last_name = request.POST['last_name']
         username = request.POST['username']
         email = request.POST['email']
+        gender = request.POST['gender']
+        date_of_birth = request.POST['date_of_birth']
         national_id = request.POST['national_id']
         police_station = request.POST['police_station']
+        county = request.POST['county']
+        role = request.POST['role']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
         if password1 != password2:
             messages.error(request, '⚠️ Passwords Do Not Match! Try Again')
-            return redirect('OfficerRegister')
+            return redirect('Register')
 
         if User.objects.filter(username=username).exists():
             messages.error(request, '⚠️ Officer Number Already Exists! Choose Another One')
-            return redirect('OfficerRegister')
+            return redirect('Register')
+
+        if Profile.objects.filter(national_id=national_id).exists():
+            messages.error(request, '⚠️ National ID Number Already Exists! Choose Another One')
+            return redirect('Register')
 
         if User.objects.filter(email=email).exists():
             messages.error(request, '⚠️ Email Address Already Exists! Choose Another One')
-            return redirect('OfficerRegister')
+            return redirect('Register')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email)
-        profile = OfficerProfile(user=user ,middle_name=middle_name, national_id=national_id, police_station=police_station)
+        profile = Profile(user=user ,middle_name=middle_name, national_id=national_id, police_station=police_station, role=role, gender=gender, date_of_birth=date_of_birth, county=county)
         user.set_password(password1)
         user.is_active = False
         profile.save()
@@ -75,9 +83,9 @@ def OfficerRegister(request):
         if not context['has_error']:
             send_activation_email(user, request)
             messages.success(request, '✅ Regristration Successful! An Activation Link Has Been Sent To Your Email')
-            return redirect('OfficerRegister')
+            return redirect('Register')
 
-    return render(request, 'Police Officer Register.html')
+    return render(request, 'Register.html')
 
 def ActivateAccount(request, uidb64, token):
     try:
@@ -91,24 +99,12 @@ def ActivateAccount(request, uidb64, token):
         user.profile.email_confirmed = True
         user.save()
         messages.success(request, ('✅ Email Verified! You can now Log in'))
-        return redirect('OfficerLogin')
+        return redirect('Login')
     else:
         messages.error(request, ('⚠️ The confirmation link was invalid, possibly because it has already been used.'))
-        return redirect('OfficerLogin')
+        return redirect('Login')
 
-def GetStartedRegister(request):
-    return render(request, 'Get Started Register.html')
-
-def GetStartedLogin(request):
-    return render(request, 'Get Started Login.html')
-
-def OCSRegister(request):
-    return render(request, 'OCS Register.html')
-
-def OCSLogin(request):
-    return render(request, 'OCS Login.html')
-
-def OfficerLogin(request):
+def Login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -117,23 +113,34 @@ def OfficerLogin(request):
 
         if not User.objects.filter(username=username).exists():
             messages.error(request, '⚠️ Officer Number Does Not Exist! Choose Another One')
-            return redirect('OfficerLogin')
+            return redirect('Login')
 
         if user is None:
             messages.error(request, '⚠️ Officer Number/Password Is Incorrect or Account Is Not Activated!! Please Try Again')
-            return redirect('OfficerLogin')
+            return redirect('Login')
 
         if user is not None:
-            login(request, user)
-            return redirect('OfficerDashboard')
-        
-    return render(request, 'Police Officer Login.html')
+            user_obj = User.objects.get(username=username)
+            user_id = user_obj.id
+            profile_obj = Profile.objects.filter(user=user_id)
+            for item in profile_obj:
+                if item.role == 'Police Officer':
+                    login(request, user)
+                    return redirect('OfficerDashboard')
+                else:
+                    login(request, user)
+                    return redirect('OCSDashboard')
+
+    return render(request, 'Login.html')
 
 @login_required(login_url='Login')
-def OfficerLogout(request):
+def Logout(request):
     logout(request)
     messages.success(request, ('✅ You Have Successfully Logged Out!'))
-    return redirect('OfficerLogin')
+    return redirect('Login')
+
+def OCSDashboard(request):
+    return render(request, 'OCS Dashboard.html')
 
 def OfficerDashboard(request):
     return render(request, 'Officer Dashboard.html')

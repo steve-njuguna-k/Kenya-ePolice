@@ -1,0 +1,273 @@
+{% extends "Blue Base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container" style="margin-top: 5px;">
+        <center>
+            {% if messages %}
+                {% for message in messages %} 
+                <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %} 
+            {% endif %}
+        </center>
+        <br>
+        <a href="{% url 'Home' %}">
+            <center>
+                <img src={% static "assets/img/logo.png" %} height="200" style="margin-bottom: 10px;">
+            </center>
+        </a>
+        <div class="text-center text-light">Already have an account? <a href="{% url 'Login' %}">Log In</a></div>
+
+        <div class="auth-form">
+            <form method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                First Name Is Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Middle Name Is Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Last Name Is Required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="username" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">Officer Number</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Officer Number Is Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                ID Number Is Required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">Email Address</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Email Address Is Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected disabled>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <label for="floatingSelect" style="color: #000000;">Gender</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Gender Is Required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                        <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Date Of Birth Is Required!
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="police_station" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected disabled>Select Station</option>
+                                <option value="Central Police Station">Central Police Station</option>
+                                <option value="Kilimani Police Station">Kilimani Police Station</option>
+                                <option value="Embakasi Police Station">Embakasi Police Station</option>
+                                <option value="Lang'ata Police Station">Lang'ata Police Station</option>
+                                <option value="Ong'ata Rongai Police Station">Ong'ata Rongai Police Station</option>
+                                <option value="Buruburu Police Station">Buruburu Police Station</option>
+                                <option value="Kasarani Police Station">Kasarani Police Station</option>
+                                <option value="Parklands Police Station">Parklands Police Station</option>
+                                <option value="Pangani Police Station">Pangani Police Station</option>
+                                <option value="Muthaiga Police Station">Muthaiga Police Station</option>
+                            </select>
+                            <label for="floatingSelect" style="color: #000000;">Police Station</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Polce Station Is Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="role" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="" selected disabled>Select Role</option>
+                                <option value="Police Officer">Police Officer</option>
+                                <option value="Officer Commanding Station">Officer Commanding Station</option>
+                            </select>
+                            <label for="floatingSelect" style="color: #000000;">Officer Role</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Role Is Required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="county" id="floatingSelect" aria-label="Floating label select example" required>
+                            <option value="" selected disabled>Select County</option>
+                            <option value='Baringo'>Baringo</option>
+                            <option value='Bomet'>Bomet</option>
+                            <option value='Bungoma'>Bungoma</option>
+                            <option value='Busia'>Busia</option>
+                            <option value='Elgeyo-Marakwet'>Elgeyo-Marakwet</option>
+                            <option value='Embu'>Embu</option>
+                            <option value='Garissa'>Garissa</option>
+                            <option value='Homa Bay'>Homa Bay</option>
+                            <option value='Isiolo'>Isiolo</option>
+                            <option value='Kajiado'>Kajiado</option>
+                            <option value='Kakamega'>Kakamega</option>
+                            <option value='Kericho'>Kericho</option>
+                            <option value='Kiambu'>Kiambu</option>
+                            <option value='Kilifi'>Kilifi</option>
+                            <option value='Kirinyaga'>Kirinyaga</option>
+                            <option value='Kisii'>Kisii</option>
+                            <option value='Kisumu'>Kisumu</option>
+                            <option value='Kitui'>Kitui</option>
+                            <option value='Kwale'>Kwale</option>
+                            <option value='Laikipia'>Laikipia</option>
+                            <option value='Lamu'>Lamu</option>
+                            <option value='Machakos'>Machakos</option>
+                            <option value='Makueni'>Makueni</option>
+                            <option value='Mandera'>Mandera</option>
+                            <option value='Marsabit'>Marsabit</option>
+                            <option value='Meru'>Meru</option>
+                            <option value='Migori'>Migori</option>
+                            <option value='Mombasa'>Mombasa</option>
+                            <option value="Murang'a">Murang'a</option>
+                            <option value='Nairobi City'>Nairobi City</option>
+                            <option value='Nakuru'>Nakuru</option>
+                            <option value='Nandi'>Nandi</option>
+                            <option value='Narok'>Narok</option>
+                            <option value='Nyamira'>Nyamira</option>
+                            <option value='Nyandarua'>Nyandarua</option>
+                            <option value='Nyeri'>Nyeri</option>
+                            <option value='Samburu'>Samburu</option>
+                            <option value='Siaya'>Siaya</option>
+                            <option value='Taita-Taveta'>Taita-Taveta</option>
+                            <option value='Tana River'>Tana River</option>
+                            <option value='Tharaka-Nithi'>Tharaka-Nithi</option>
+                            <option value='Trans Nzoia'>Trans Nzoia</option>
+                            <option value='Turkana'>Turkana</option>
+                            <option value='Uasin Gishu'>Uasin Gishu</option>
+                            <option value='Vihiga'>Vihiga</option>
+                            <option value='Wajir'>Wajir</option>
+                            <option value='West Pokot'>West Pokot</option>
+                        </select>
+                        <label for="floatingSelect" style="color: #000000;">County</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            County Is Required!
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password1" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">Password</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Password Is Required!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password2" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                            <label for="floatingInputGrid" style="color: #000000;">Confirm Password</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Confirm Password Is Required!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="form-floating mb-3">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-dark btn-lg" type="submit">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
