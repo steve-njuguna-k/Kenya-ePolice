@@ -3,9 +3,11 @@
 
 {% block content %}
     <div class="container" style="margin-top: 70px;">
-        <center>
-            <img src={% static "assets/img/logo.png" %} height="150" style="margin-bottom: 10px;">
-        </center>
+        <a href="{% url 'Home' %}">
+            <center>
+                <img src={% static "assets/img/logo.png" %} height="250" style="margin-bottom: 10px;">
+            </center>
+        </a>
         <div class="text-center text-light">Don't have an account? <a href="{% url 'OCSRegister' %}">Register</a></div>
 
         <center>
@@ -22,16 +24,17 @@
         </center>
 
         <div class="auth-form">
-            <form>
+            <form method="POST">
+                {% csrf_token %}
                 <div class="row g-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Officer No">
+                        <input type="text" class="form-control" name="username" id="floatingInputGrid" placeholder="name@example.com" value="Your Officer Number">
                         <label for="floatingInputGrid" style="color: #000000;">Officer No.</label>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Email Address">
+                        <input type="password" class="form-control" name="password" id="floatingInputGrid" placeholder="name@example.com" value="Your Email Address">
                         <label for="floatingInputGrid" style="color: #000000;">Password</label>
                     </div>
                 </div>

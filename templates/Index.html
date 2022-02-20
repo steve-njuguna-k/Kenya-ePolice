@@ -1,0 +1,54 @@
+{% extends "Blue Base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <a href="{% url 'Home' %}">
+            <center>
+                <img src={% static "assets/img/logo.png" %} height="250" style="margin-bottom: 10px;">
+            </center>
+        </a>
+        <div class="text-center text-light py-3">Please Choose An Option Below</div>
+
+        <div class="row">
+            <div class="col-sm-2">
+            
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Log In</h1>
+                        <p class="card-text text-center">Log Into Kenya ePolice To Manage All Your Matters In Law Enforcement</p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'GetStartedLogin' %}">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary btn-lg" type="button">Log In</button>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Register</h1>
+                        <p class="card-text text-center">Create An Account With Kenya ePolice To Manage All Your Matters In Law Enforcement</p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'GetStartedRegister' %}">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary btn-lg" type="button">Register</button>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                    
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

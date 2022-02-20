@@ -18,3 +18,6 @@ def OfficerRegister(request):
 
 def OfficerLogin(request):
     return render(request, 'Police Officer Login.html')
+
+def Home(request):
+    return render(request, 'Index.html')
