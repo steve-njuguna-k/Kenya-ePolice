@@ -108,9 +108,35 @@ def OCSRegister(request):
 def OCSLogin(request):
     return render(request, 'OCS Login.html')
 
-
 def OfficerLogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if not User.objects.filter(username=username).exists():
+            messages.error(request, '⚠️ Officer Number Does Not Exist! Choose Another One')
+            return redirect('OfficerLogin')
+
+        if user is None:
+            messages.error(request, '⚠️ Officer Number/Password Is Incorrect or Account Is Not Activated!! Please Try Again')
+            return redirect('OfficerLogin')
+
+        if user is not None:
+            login(request, user)
+            return redirect('OfficerDashboard')
+        
     return render(request, 'Police Officer Login.html')
+
+@login_required(login_url='Login')
+def OfficerLogout(request):
+    logout(request)
+    messages.success(request, ('✅ You Have Successfully Logged Out!'))
+    return redirect('OfficerLogin')
+
+def OfficerDashboard(request):
+    return render(request, 'Officer Dashboard.html')
 
 def Home(request):
     return render(request, 'Index.html')
