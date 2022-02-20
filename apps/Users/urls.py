@@ -9,5 +9,6 @@ urlpatterns = [
     path('ocs/register', views.OCSRegister, name="OCSRegister"),
     path('ocs/login', views.OCSLogin, name="OCSLogin"),
     path('officer/register', views.OfficerRegister, name="OfficerRegister"),
-    path('officer/login', views.OfficerLogin, name="OfficerLogin")
+    path('officer/login', views.OfficerLogin, name="OfficerLogin"),
+    path('activateuser/<uidb64>/<token>',views.ActivateAccount, name = 'ActivateAccount'),
 ]

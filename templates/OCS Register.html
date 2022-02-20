@@ -24,70 +24,131 @@
         </center>
     
         <div class="auth-form">
-            <form method="POST">
+            <form method="POST" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="Your First Name">
+                            <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                First Name Is Required!
+                            </div>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="Your Middle Name">
+                            <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Middle Name Is Required!
+                            </div>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="Your Last Name">
+                            <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Last Name Is Required!
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="username" id="floatingInputGrid" placeholder="name@example.com" value="Officer Number">
+                            <input type="text" class="form-control" name="username" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">Officer No.</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Officer Number Is Required!
+                            </div>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="id_number" id="floatingInputGrid" placeholder="name@example.com" value="National ID Number">
+                            <input type="text" class="form-control" name="id_number" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">ID No.</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                ID Number Is Required!
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" name="email" id="floatingInputGrid" placeholder="name@example.com" value="Your Email Address">
+                        <input type="email" class="form-control" name="email" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                         <label for="floatingInputGrid" style="color: #000000;">Email Address</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Email Address Is Required!
+                        </div>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="police_station" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Select Station</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <select class="form-select" name="police_station" id="floatingSelect" aria-label="Floating label select example" required>
+                            <option value="" selected disabled>Select Station</option>
+                            <option value="Central Police Station">Central Police Station</option>
+                            <option value="Kilimani Police Station">Kilimani Police Station</option>
+                            <option value="Embakasi Police Station">Embakasi Police Station</option>
+                            <option value="Lang'ata Police Station">Lang'ata Police Station</option>
+                            <option value="Ong'ata Rongai Police Station">Ong'ata Rongai Police Station</option>
+                            <option value="Buruburu Police Station">Buruburu Police Station</option>
+                            <option value="Kasarani Police Station">Kasarani Police Station</option>
+                            <option value="Parklands Police Station">Parklands Police Station</option>
+                            <option value="Pangani Police Station">Pangani Police Station</option>
+                            <option value="Muthaiga Police Station">Muthaiga Police Station</option>
                         </select>
                         <label for="floatingSelect" style="color: #000000;">Police Station</label>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Polce Station Is Required!
+                        </div>
                     </div>
                 </div>
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" name="password1" id="floatingInputGrid" placeholder="name@example.com" value="Officer Number">
+                            <input type="password" class="form-control" name="password1" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">Password</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Password Is Required!
+                            </div>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" name="password2" id="floatingInputGrid" placeholder="name@example.com" value="National ID Number">
+                            <input type="password" class="form-control" name="password2" id="floatingInputGrid" placeholder="name@example.com" value="" required>
                             <label for="floatingInputGrid" style="color: #000000;">Confirm Password</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Confirm Password Is Required!
+                            </div>
                         </div>
                     </div>
                 </div>

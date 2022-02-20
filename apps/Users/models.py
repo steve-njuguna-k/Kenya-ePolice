@@ -16,13 +16,14 @@ STATIONS = [
 
 # Create your models here.
 class OfficerProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User', related_name='profile')
     middle_name = models.CharField(max_length=10, verbose_name='Middle Name')
     bio = models.TextField(max_length=254, verbose_name='Bio')
     national_id = models.CharField(max_length=10, verbose_name='National ID')
     # profile_picture = CloudinaryField('profile_picture')
     profile_picture = models.ImageField(upload_to='Profile-Pics', verbose_name='Profile-Pics')
     police_station = models.CharField(choices=STATIONS, max_length=150, verbose_name='Police Station', null=True, blank=True)
+    role = models.CharField(max_length=20, verbose_name='Role', default='Police Officer')
     email_confirmed = models.BooleanField(default=False, verbose_name='Is Confirmed?')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
@@ -41,6 +42,7 @@ class OCSProfile(models.Model):
     # profile_picture = CloudinaryField('profile_picture')
     profile_picture = models.ImageField(upload_to='Profile-Pics', verbose_name='Profile-Pics')
     police_station = models.CharField(choices=STATIONS, max_length=150, verbose_name='Police Station', null=True, blank=True)
+    role = models.CharField(max_length=20, verbose_name='Role', default='Officer Commanding Station')
     email_confirmed = models.BooleanField(default=False, verbose_name='Is Confirmed?')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')

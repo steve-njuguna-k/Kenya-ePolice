@@ -48,7 +48,7 @@ def OfficerRegister(request):
         last_name = request.POST['last_name']
         username = request.POST['username']
         email = request.POST['email']
-        id_number = request.POST['id_number']
+        national_id = request.POST['national_id']
         police_station = request.POST['police_station']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -66,11 +66,11 @@ def OfficerRegister(request):
             return redirect('OfficerRegister')
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email)
-        profile = OfficerProfile(middle_name=middle_name, id_number=id_number, police_station=police_station)
+        profile = OfficerProfile(user=user ,middle_name=middle_name, national_id=national_id, police_station=police_station)
         user.set_password(password1)
         user.is_active = False
-        user.save()
         profile.save()
+        user.save()
 
         if not context['has_error']:
             send_activation_email(user, request)
