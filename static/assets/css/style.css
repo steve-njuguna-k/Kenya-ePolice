@@ -9,6 +9,16 @@ body {
 	background: #003398!important;
 }
 
+a{
+    color: #fac801;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #fac801;
+    text-decoration: none;
+}
+
 .btn-primary{
     color: #ffffff!important;
 	background: #003398!important;

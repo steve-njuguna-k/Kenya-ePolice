@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-def GetStarted(request):
-    return render(request, 'Get Started.html')
+def GetStartedRegister(request):
+    return render(request, 'Get Started Register.html')
+
+def GetStartedLogin(request):
+    return render(request, 'Get Started Login.html')

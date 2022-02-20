@@ -1,0 +1,42 @@
+{% extends "Blue Base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container register">
+        <center>
+            <img src={% static "assets/img/logo.png" %} height="250" style="margin-bottom: 10px;">
+        </center>
+        <div class="text-center text-light py-3">Don't have an account? <a href="#">Register</a></div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+            
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                    <h1 class="card-title text-center">OCS</h1>
+                    <p class="card-text text-center">This account is for Officer Commanding Station only. You will need your National ID number, Officer Number and your Full Names to log in.</p>
+                    <a href="#" class="btn btn-primary btn-block btn-lg">Log In</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                    <h1 class="card-title text-center">Police Officer</h1>
+                    <p class="card-text text-center">This account is for Police Officers only. You will need your National ID number, Officer Number and your Full Names to log in.</p>
+                    <a href="#" class="btn btn-primary btn-block btn-lg">Log In</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                    
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
