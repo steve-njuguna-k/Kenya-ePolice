@@ -1,0 +1,22 @@
+body {
+	color: #000000!important;
+	background: #ffffff!important;
+	font-family: Roboto, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.get-started{
+    color: #000000!important;
+	background: #003398!important;
+}
+
+.btn-primary{
+    color: #ffffff!important;
+	background: #003398!important;
+    border-color: #003398!important;
+}
+
+.btn-primary:hover{
+    color: #ffffff!important;
+	background: #003398!important;
+    border-color: #003398!important;
+}
