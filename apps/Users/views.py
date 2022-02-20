@@ -10,5 +10,11 @@ def GetStartedLogin(request):
 def OCSRegister(request):
     return render(request, 'OCS Register.html')
 
+def OCSLogin(request):
+    return render(request, 'OCS Login.html')
+
 def OfficerRegister(request):
     return render(request, 'Police Officer Register.html')
+
+def OfficerLogin(request):
+    return render(request, 'Police Officer Login.html')

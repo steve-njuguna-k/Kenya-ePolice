@@ -6,10 +6,8 @@
         <center>
             <img src={% static "assets/img/logo.png" %} height="150" style="margin-bottom: 10px;">
         </center>
-        <div class="text-center text-light">Don't have an account? <a href="#">Register</a></div>
-    </div>
+        <div class="text-center text-light">Already have an account? <a href="{% url 'OfficerLogin' %}">Log In</a></div>
 
-    <div class="container">
         <center>
             {% if messages %}
                 {% for message in messages %} 
@@ -22,68 +20,83 @@
                 {% endfor %} 
             {% endif %}
         </center>
-    </div>
-    <div class="signup-form">
-        <form>
-            <div class="row g-2">
-                <div class="col-md">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your First Name">
-                        <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+
+        <div class="auth-form">
+            <form>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your First Name">
+                            <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Middle Name">
+                            <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Last Name">
+                            <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Middle Name">
-                        <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Officer Number">
+                            <label for="floatingInputGrid" style="color: #000000;">Officer No.</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="National ID Number">
+                            <label for="floatingInputGrid" style="color: #000000;">ID No.</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md">
+                <div class="row g-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Last Name">
-                        <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                        <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Email Address">
+                        <label for="floatingInputGrid" style="color: #000000;">Email Address</label>
                     </div>
                 </div>
-            </div>
-            <div class="row g-2">
-                <div class="col-md">
+                <div class="row g-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Officer Number">
-                        <label for="floatingInputGrid" style="color: #000000;">Officer No.</label>
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <option selected>Select Station</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        </select>
+                        <label for="floatingSelect" style="color: #000000;">Police Station</label>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="National ID Number">
-                        <label for="floatingInputGrid" style="color: #000000;">ID No.</label>
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Officer Number">
+                            <label for="floatingInputGrid" style="color: #000000;">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="National ID Number">
+                            <label for="floatingInputGrid" style="color: #000000;">Confirm Password</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row g-2">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="Your Email Address">
-                    <label for="floatingInputGrid" style="color: #000000;">Email Address</label>
+                <div class="row g-2">
+                    <div class="form-floating mb-3">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-dark btn-lg" type="submit">Register</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row g-2">
-                <div class="form-floating mb-3">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                      <option selected>Select Station</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                    <label for="floatingSelect" style="color: #000000;">Police Station</label>
-                  </div>
-            </div>
-            <div class="row g-2">
-                <div class="form-floating mb-3">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-dark btn-lg" type="submit">Register</button>
-                      </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
 {% endblock %}

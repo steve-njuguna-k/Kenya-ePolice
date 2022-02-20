@@ -31,32 +31,32 @@ a:hover{
     border-color: #003398!important;
 }
 
-.signup-form {
+.auth-form {
 	width: 800px;
 	margin: 10px auto;
 }
-.signup-form form {
+.auth-form form {
 	color: #ffffff;
 	border-radius: 3px;
 	margin-bottom: 5px;
 	padding: 5px;
 }
-.signup-form h2  {
+.auth-form h2  {
 	color: #000000;
 	font-weight: bold;
 	margin-top: 0;
 }
-.signup-form hr  {
+.auth-form hr  {
 	margin: 0 -30px 20px;
 }    
-.signup-form .form-group {
+.auth-form .form-group {
 	margin-bottom: 20px;
 }
-.signup-form input[type="checkbox"] {
+.auth-form input[type="checkbox"] {
 	margin-top: 3px;
 }
 
-.signup-form .btn {        
+.auth-form .btn {        
 	font-weight: bold;
 	background: #fac801;
     color: #000000;
@@ -66,36 +66,37 @@ a:hover{
     font-size: 1.25rem;
     border-radius: 0.3rem;
 }
-.signup-form .btn:hover, .signup-form .btn:focus {
+.auth-form .btn:hover, .auth-form .btn:focus {
 	background: #fac801 !important;
     color: #000000;
 	outline: none;
 }
-.signup-form a {
+.auth-form a {
 	color: #fac801;
 	text-decoration: none;
 }
-.signup-form a:hover {
+.auth-form a:hover {
     color: #fac801;
 	text-decoration: none;
 }
-.signup-form form a {
+.auth-form form a {
 	color: #003398;
 	text-decoration: none;
 }	
-.signup-form form a:hover {
+.auth-form form a:hover {
 	color: #fac801;
 	text-decoration: none;
 }
-.signup-form .hint-text  {
+.auth-form .hint-text  {
 	padding-bottom: 15px;
 	text-align: center;
 }
 
-.signup-form .row div:first-child {
+.auth-form .row div:first-child {
     padding-left: 0px;
 }
 
-.signup-form .row div:last-child {
+.auth-form .row div:last-child {
     padding-left: 0px;
 }
+
