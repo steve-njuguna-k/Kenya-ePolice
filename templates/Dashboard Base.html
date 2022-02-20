@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Kenya ePolice - Police Station Management System</title>
+        <!-- core:css -->
+        <link rel="stylesheet" href={% static "assets/vendors/core/core.css" %}>
+        <!-- endinject -->
+        <!-- plugin css for this page -->
+        <link rel="stylesheet" href={% static "assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" %}>
+            <!-- end plugin css for this page -->
+            <!-- inject:css -->
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+            <link rel="stylesheet" href={% static "assets/fonts/feather-font/css/iconfont.css" %}>
+            <link rel="stylesheet" href={% static "assets/vendors/flag-icon-css/css/flag-icon.min.css" %}>
+            <!-- endinject -->
+        <!-- Layout styles -->  
+            <link rel="stylesheet" href={% static "assets/css/style.css" %}>
+        <!-- End layout styles -->
+        <link rel="shortcut icon" href={% static "assets/img/favicon.png" %} />
+    </head>
+    <body>
+
+        {% block content %} {% endblock %}
+        {% include 'Dark Footer.html' %}
+
+        <!-- core:js -->
+        <script src={% static "assets/vendors/core/core.js" %}></script>
+        <!-- endinject -->
+        <!-- plugin js for this page -->
+        <script src={% static "assets/vendors/chartjs/Chart.min.js" %}></script>
+        <script src={% static "assets/vendors/jquery.flot/jquery.flot.js" %}></script>
+        <script src={% static "assets/vendors/jquery.flot/jquery.flot.resize.js" %}></script>
+        <script src={% static "assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js" %}></script>
+        <script src={% static "assets/vendors/apexcharts/apexcharts.min.js" %}></script>
+        <script src={% static "assets/vendors/progressbar.js/progressbar.min.js" %}></script>
+            <!-- end plugin js for this page -->
+            <!-- inject:js -->
+            <script src={% static "assets/vendors/feather-icons/feather.min.js" %}></script>
+            <script src={% static "assets/js/template.js" %}></script>
+            <!-- endinject -->
+        <!-- custom js for this page -->
+        <script src={% static "assets/js/dashboard.js" %}></script>
+        <script src={% static "assets/js/datepicker.js" %}></script>
+        <!-- end custom js for this page -->
+    </body>
+</html>
