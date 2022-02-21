@@ -84,13 +84,13 @@
                                                         {% endif %}
                                                     </td>
                                                     <td>
-                                                        <a href="#">
+                                                        <a href="{% url 'ViewArrestedPersonDetails' person.id %}" data-toggle="modal" data-target="#exampleModal2{{ person.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
                                                         </a>
                                                         <a href="#">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
                                                         </a>
-                                                        <a href="#">
+                                                        <a href="#" data-toggle="modal" data-target="#exampleModal4{{ person.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm mr-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class=""></span>
                                                         </a>
                                                     </td>
@@ -119,7 +119,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="" class="needs-validation" novalidate>
+                        <form method="POST" action="" enctype="multipart/form-data" class="needs-validation" novalidate>
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
@@ -268,5 +268,143 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    {% for person in accused %}
+        <div class="modal fade" id="exampleModal2{{ person.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ person.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ person.id }}">Arrested Person Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="main-body">
+                        <div class="row gutters-sm">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            {% if person.profile_picture %}
+                                                <img src="{{ person.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                            {% else %}
+                                                <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mt-3">
+                                    <ul class="list-group list-group-flush">
+                                        {% if person.arrested_on %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">Arrested On</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ person.arrested_on }}</span>
+                                        </li>
+                                        {% endif %}
+                                        {% if person.arrest_status %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">Arrest Status</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i>
+                                                {% if person.arrest_status == 'Free' %}
+                                                <span class="badge badge-success">{{ person.arrest_status }}</span>
+                                                {% elif person.arrest_status == 'Convicted' %}
+                                                <span class="badge badge-danger">{{ person.arrest_status }}</span>
+                                                {% elif person.arrest_status == 'In Custody' %}
+                                                <span class="badge badge-warning">{{ person.arrest_status }}</span>
+                                                {% elif person.arrest_status == 'Out On Bond' %}
+                                                <span class="badge badge-secondary">{{ person.arrest_status }}</span>
+                                                {% else %}
+                                                <span class="badge badge-info">{{ person.arrest_status }}</span>
+                                                {% endif %}
+                                            </span>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">First Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ person.first_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Middle Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ person.middle_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Last Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ person.last_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">ID Number</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if person.national_id %}
+                                                {{ person.national_id }}
+                                                {% else %}
+                                                Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Date Of Birth</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if person.date_of_birth %}
+                                                    {{ person.date_of_birth }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Gender</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if person.gender %}
+                                                    {{ person.gender }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}

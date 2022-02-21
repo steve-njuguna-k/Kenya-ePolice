@@ -18,7 +18,7 @@ def OfficerAccused(request):
         date_of_birth = request.POST['date_of_birth']
         gender = request.POST['gender']
         national_id = request.POST['national_id']
-        profile_picture = request.POST['profile_picture']
+        profile_picture = request.FILES['profile_picture']
         arrest_status = request.POST['arrest_status']
         arrested_on = request.POST['arrested_on']
 
@@ -33,3 +33,7 @@ def OfficerAccused(request):
             return redirect('OfficerAccused')
 
     return render(request, 'Officer Accused.html', {'accused':accused})
+
+def ViewArrestedPersonDetails(request, id):
+    person_details = AccusedPerson.objects.get(id=id)
+    return render(request, 'Officer Accused.html', {'person_details':person_details})
