@@ -37,3 +37,9 @@ def OfficerAccused(request):
 def ViewArrestedPersonDetails(request, id):
     person_details = AccusedPerson.objects.get(id=id)
     return render(request, 'Officer Accused.html', {'person_details':person_details})
+
+def DeleteArrestedPersonDetails(request, id):
+    person_details = AccusedPerson.objects.get(id=id)
+    person_details.delete()
+    messages.success(request, '✅ Arrest Record Successfully Deleted!')
+    return redirect('OfficerAccused')
