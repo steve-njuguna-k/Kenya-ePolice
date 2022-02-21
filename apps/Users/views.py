@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import update_session_auth_hash
+from apps.Users.forms import PasswordChangeForm
 from apps.Users.models import Profile
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
@@ -139,9 +140,30 @@ def Logout(request):
     messages.success(request, ('✅ You Have Successfully Logged Out!'))
     return redirect('Login')
 
+@login_required(login_url='Login')
+def Settings(request):
+    username = request.user
+    profile_details = Profile.objects.get(user=username.id)
+    if request.method == "POST":
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, '✅ Your Password Has Been Updated Successfully!')
+            return redirect("Settings", username=username)
+        else:
+            messages.error(request, "⚠️ Your Password Wasn't Updated!")
+            return redirect("Settings", username=username)
+    else:
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+    
+    return render(request, "Settings.html", {'form': form, 'profile_details':profile_details})
+
+@login_required(login_url='Login')
 def OCSDashboard(request):
     return render(request, 'OCS Dashboard.html')
 
+@login_required(login_url='Login')
 def OfficerDashboard(request):
     return render(request, 'Officer Dashboard.html')
 

@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
     <div class="main-wrapper">
 
         <!-- partial:partials/_navbar.html -->
@@ -155,9 +154,88 @@
                     </div>
                 </div>
 
-            </div>
-        
-        </div>
+                <div class="container">
+                    <center>
+                        {% if messages %}
+                            {% for message in messages %} 
+                            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %} 
+                        {% endif %}
+                    </center>
+                    <div class="main-body">
+                        
+                            <div class="row gutters-sm">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column align-items-center text-center">
+                                                {% if profile_details.profile_picture %}
+                                                    <img src="{{ profile_details.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                                {% else %}
+                                                    <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
+                                                {% endif %}
+                                                <div class="mt-3">
+                                                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                                                    <h4 class="text-dark mb-1">Role: <b>{{ profile_details.role }}</b></h4>
+                                                    <p class="text-secondary mb-1">Officer Number: <b>{{ user.username }}</b></p>
+                                                    <br>
+                                                    <p class="text-dark mb-1">Police Station: <b>{{ profile_details.police_station }}</b></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <form method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            {{ form.old_password }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            {{ form.new_password1 }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="helptext">
+                                                    <ul>
+                                                        <li>Your password can’t be too similar to your other personal information.</li>
+                                                        <li>Your password must contain at least 8 characters.</li>
+                                                        <li>Your password can’t be a commonly used password.</li>
+                                                        <li>Your password can’t be entirely numeric.</li>
+                                                    </ul>
+                                                </span>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            {{ form.new_password2 }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 10px;">Save Changes</button>
+                                                <a href="#" name="MyProfile">
+                                                    <button type="button" class="btn btn-dark btn-lg btn-block" style="background-color: #000000!important;">Cancel</button>
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                    </div>
+
+                    </div> 
+                </div>
+            </div>    
     </div>
 
 {% endblock %}

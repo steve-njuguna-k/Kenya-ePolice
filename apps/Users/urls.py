@@ -10,4 +10,5 @@ urlpatterns = [
     path('officer/dashboard', views.OfficerDashboard, name="OfficerDashboard"),
     path('ocs/dashboard', views.OCSDashboard, name="OCSDashboard"),
     path('logout', views.Logout, name="Logout"),
+    path('profile/settings', views.Settings, name="Settings"),
 ]
