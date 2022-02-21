@@ -8,6 +8,7 @@ GENDER = [
 
 ARREST_STATUS = [
     ('Free', ('Free')),
+    ('Convicted', ('Convicted')),
     ('In Cutody', ('In Cutody')),
     ('Out On Bond', ('Out On Bond')),
     ('Out On Cash Bail', ('Out On Cash Bail')),
@@ -25,6 +26,8 @@ class AccusedPerson(models.Model):
     # profile_picture = CloudinaryField('accused_persons_profile_picture')
     profile_picture = models.ImageField(upload_to='Accused-Profile-Pics', verbose_name='Accused Person Profile Pics')
     arrest_status = models.CharField(choices=ARREST_STATUS, max_length=50, verbose_name='Arrest Status')
+    arrested_on = models.DateField(verbose_name='Arrested On')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Police Officer')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
     

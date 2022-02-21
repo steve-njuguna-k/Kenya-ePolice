@@ -13,65 +13,259 @@
 
                 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
                     <div>
-                        <h4 class="page-title text-primary"><b>All Cases</b></h4>
+                        <h4 class="page-title text-primary"><b>All Arrested People</b></h4>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'OfficerDashboard' %}" name = 'Dashboard'>Home</a></li>
                             <li class="breadcrumb-item active">All Cases</li>
                         </ol>
                         <br>
-                        <h5>Here is the list of all your cases.</h5>
+                        <h5>Here is the list of all your arrested people.</h5>
                     </div>
                     <div class="d-flex align-items-center flex-wrap text-nowrap">
                         <div class="d-flex align-items-center flex-wrap text-nowrap">
-                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button" data-toggle="modal" data-target="#staticBackdrop" id="ar-create">
                                 <i class="btn-icon-prepend" data-feather="plus"></i>
-                                Create A New Case
+                                New Arrest Record
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
+                    <center>
+                        {% if messages %}
+                            {% for message in messages %} 
+                            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %} 
+                        {% endif %}
+                    </center>
 					<div class="col-md-12 grid-margin stretch-card">
 						<div class="card">
-							<div class="card-body">
-								<div class="table-responsive">
-								<table id="dataTableExample" class="table">
-									<thead>
-									<tr>
-										<th>#</th>
-                                        <th>Name</th>
-										<th>Position</th>
-										<th>Office</th>
-										<th>Age</th>
-										<th>Start date</th>
-										<th>Salary</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-									</tr>
-									</thead>
-									<tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                            <td>$320,800</td>
-                                        </tr>
-									</tbody>
-								</table>
-								</div>
-							</div>
-						</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                            <th class="pt-0">#</th>
+                                            <th class="pt-0">First Name</th>
+                                            <th class="pt-0">Middle Name</th>
+                                            <th class="pt-0">Last Name</th>
+                                            <th class="pt-0">ID No.</th>
+                                            <th class="pt-0">Gender</th>
+                                            <th class="pt-0">Arrested On</th>
+                                            <th class="pt-0">Arrest Status</th>
+                                            <th class="pt-0">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for person in accused %}
+                                                <tr>
+                                                    <td>{{ person.arrest_number }}</td>
+                                                    <td>{{ person.first_name }}</td>
+                                                    <td>{{ person.middle_name }}</td>
+                                                    <td>{{ person.last_name }}</td>
+                                                    <td>{{ person.gender }}</span></td>
+                                                    <td>{{ person.national_id }}</td>
+                                                    <td>{{ person.arrested_on }}</td>
+                                                    <td>
+                                                        {% if person.arrest_status == 'Free' %}
+                                                        <span class="badge badge-success">{{ person.arrest_status }}</span>
+                                                        {% elif person.arrest_status == 'Convicted' %}
+                                                        <span class="badge badge-danger">{{ person.arrest_status }}</span>
+                                                        {% elif person.arrest_status == 'In Custody' %}
+                                                        <span class="badge badge-warning">{{ person.arrest_status }}</span>
+                                                        {% elif person.arrest_status == 'Out On Bond' %}
+                                                        <span class="badge badge-secondary">{{ person.arrest_status }}</span>
+                                                        {% else %}
+                                                        <span class="badge badge-info">{{ person.arrest_status }}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <a href="#">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
+                                                        </a>
+                                                        <a href="#">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
+                                                        </a>
+                                                        <a href="#">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm mr-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class=""></span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> 
+                          </div>
 					</div>
 				</div>
-
             </div>
-        
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Arrested Person</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <form method="POST" action="" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Arrest Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Arrest Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            First Name Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Middle Name Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Last Name Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Date Of Birth Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" required>
+                                            <option value="" selected disabled>Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                        <label for="floatingSelect" style="color: #000000;">Gender</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Gender Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            ID Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Picture</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Picture Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Arrested On Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" required>
+                                            <option value="" selected disabled>Arrest Status</option>
+                                            <option value="Free">Free</option>
+                                            <option value="Convicted">Convicted</option>
+                                            <option value="In Custody">In Custody</option>
+                                            <option value="Out On Bond">Out On Bond</option>
+                                            <option value="Out On Cash Bail">Out On Cash Bail</option>
+                                        </select>
+                                        <label for="floatingSelect" style="color: #000000;">Arrest Status</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Arrest Status Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Record</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
