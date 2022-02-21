@@ -1,0 +1,78 @@
+{% extends "Dashboard Base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="main-wrapper">
+
+        {% include 'Navbar.html' %}
+
+        <div class="page-wrapper">
+
+            <div class="page-content">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div>
+                        <h4 class="page-title text-primary"><b>All Cases</b></h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'OfficerDashboard' %}" name = 'Dashboard'>Home</a></li>
+                            <li class="breadcrumb-item active">All Cases</li>
+                        </ol>
+                        <br>
+                        <h5>Here is the list of all your cases.</h5>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap text-nowrap">
+                        <div class="d-flex align-items-center flex-wrap text-nowrap">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button">
+                                <i class="btn-icon-prepend" data-feather="plus"></i>
+                                Create A New Case
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<div class="table-responsive">
+								<table id="dataTableExample" class="table">
+									<thead>
+									<tr>
+										<th>#</th>
+                                        <th>Name</th>
+										<th>Position</th>
+										<th>Office</th>
+										<th>Age</th>
+										<th>Start date</th>
+										<th>Salary</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+									</tr>
+									</thead>
+									<tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                            <td>$320,800</td>
+                                            <td>$320,800</td>
+                                            <td>$320,800</td>
+                                        </tr>
+									</tbody>
+								</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+            </div>
+        
+        </div>
+    </div>
+
+{% endblock %}

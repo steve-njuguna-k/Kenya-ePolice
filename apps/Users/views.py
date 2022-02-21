@@ -16,6 +16,9 @@ from Core import settings
 import threading
 
 # Create your views here.
+def Home(request):
+    return render(request, 'Index.html')
+
 class EmailThread(threading.Thread):
 
     def __init__(self, email):
@@ -222,6 +225,3 @@ def OCSDashboard(request):
 @login_required(login_url='Login')
 def OfficerDashboard(request):
     return render(request, 'Officer Dashboard.html')
-
-def Home(request):
-    return render(request, 'Index.html')

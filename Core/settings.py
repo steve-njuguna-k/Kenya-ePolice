@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.Users',
+    'apps.Accused',
     'django_cleanup.apps.CleanupConfig',
     'cloudinary',
 ]
