@@ -16,16 +16,8 @@
                         <h4 class="mb-3 mb-md-0">Welcome to Your Dashboard</h4>
                     </div>
                     <div class="d-flex align-items-center flex-wrap text-nowrap">
-                        <div class="dropdown">
-                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="btn-icon-prepend" data-feather="plus"></i>
-                                Create A New
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
+                        <div class="d-flex align-items-center flex-wrap text-nowrap">
+                            {% include 'Dropdown.html' %}
                         </div>
                     </div>
                 </div>

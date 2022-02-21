@@ -1,0 +1,185 @@
+{% extends "Dashboard Base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        {% include 'Navbar.html' %}
+
+        <div class="page-wrapper">
+
+            <div class="page-content">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div>
+                        <h4 class="mb-3 mb-md-0">My Profile</h4>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap text-nowrap">
+                        <div class="d-flex align-items-center flex-wrap text-nowrap">
+                            {% include 'Dropdown.html' %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <center>
+                        {% if messages %}
+                            {% for message in messages %} 
+                            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %} 
+                        {% endif %}
+                    </center>
+                    <div class="main-body">
+                        <div class="row gutters-sm">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            {% if profile_details.profile_picture %}
+                                                <img src="{{ profile_details.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                            {% else %}
+                                                <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
+                                            {% endif %}
+                                            <div class="mt-3">
+                                                <h4>{{ profile_details.user.first_name }} {{ profile_details.user.last_name }}</h4>
+                                                <p class="text-secondary mb-1">Officer Number: {{ profile_details.user.username }}</p>
+                                                <p class="text-dark mb-1">Member since: {{ profile_details.date_created }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mt-3">
+                                    <ul class="list-group list-group-flush">
+                                        {% if profile_details.police_station %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">Station</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ profile_details.police_station }}</span>
+                                        </li>
+                                        {% endif %}
+                                        {% if profile_details.county %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">County</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ profile_details.county }}</span>
+                                        </li>
+                                        {% endif %}
+                                        {% if profile_details.role %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">Role</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ profile_details.role }}</span>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">First Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ profile_details.user.first_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Middle Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ profile_details.middle_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Last Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ profile_details.user.last_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Email Address</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ profile_details.user.email }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">ID Number</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if profile_details.national_id %}
+                                                {{ profile_details.national_id }}
+                                                {% else %}
+                                                Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Date Of Birth</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if profile_details.date_of_birth %}
+                                                    {{ profile_details.date_of_birth }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Gender</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if profile_details.gender %}
+                                                    {{ profile_details.gender }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <a class="btn btn-primary" href="{% url 'OfficerEditProfile' %}" name="EditProfile"><i class="fa-solid fa-edit"></i> Edit Profile Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <div class="row gutters-sm">
+                                    <div class="col-sm-12 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i> My Bio</h6>
+                                            {% if profile_details.bio %}
+                                            <p class="text-muted">{{ profile_details.bio }}</p>
+                                            {% else %}
+                                            <p class="text-muted">Your Bio Goes Here</p>
+                                            {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>    
+    </div>
+
+{% endblock %}

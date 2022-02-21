@@ -141,7 +141,7 @@ def Logout(request):
     return redirect('Login')
 
 @login_required(login_url='Login')
-def Settings(request):
+def OfficerSettings(request):
     username = request.user
     profile_details = Profile.objects.get(user=username.id)
     if request.method == "POST":
@@ -150,17 +150,17 @@ def Settings(request):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, '✅ Your Password Has Been Updated Successfully!')
-            return redirect("Settings")
+            return redirect("OfficerProfile")
         else:
             messages.error(request, "⚠️ Your Password Wasn't Updated!")
-            return redirect("Settings")
+            return redirect("OfficerSettings")
     else:
         form = PasswordChangeForm(data=request.POST, user=request.user)
     
-    return render(request, "Settings.html", {'form': form, 'profile_details':profile_details})
+    return render(request, "Officer Settings.html", {'form': form, 'profile_details':profile_details})
 
 @login_required(login_url='Login')
-def EditProfile(request):
+def OfficerEditProfile(request):
     user = request.user
     profile_details = Profile.objects.get(user = user.id)
     if request.method == 'POST':
@@ -199,15 +199,21 @@ def EditProfile(request):
             user.save()
             profile_details.save()
             messages.success(request, '✅ Your Profile Details Has Been Updated Successfully!')
-            return redirect('EditProfile')
+            return redirect('OfficerProfile')
         else:
             messages.error(request, "⚠️ Your Profile Wasn't Updated!")
-            return redirect('EditProfile')
+            return redirect('OfficerEditProfile')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'Edit Profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile_details':profile_details})
+    return render(request, 'Officer Edit Profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile_details':profile_details})
+
+@login_required(login_url='Login')
+def OfficerProfile(request):
+    profile = request.user
+    profile_details = Profile.objects.get(user = profile.id)
+    return render(request, 'Officer Profile.html', {'profile':profile, 'profile_details':profile_details})
 
 @login_required(login_url='Login')
 def OCSDashboard(request):

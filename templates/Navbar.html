@@ -45,19 +45,19 @@
                                 <div class="dropdown-body">
                                     <ul class="profile-nav p-0 pt-3">
                                         <li class="nav-item">
-                                            <a href="pages/general/profile.html" class="nav-link">
+                                            <a href="{% url 'OfficerProfile' %}" class="nav-link">
                                                 <i data-feather="user"></i>
                                                 <span>Profile</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'EditProfile' %}" class="nav-link">
+                                            <a href="{% url 'OfficerEditProfile' %}" class="nav-link">
                                                 <i data-feather="edit"></i>
                                                 <span>Edit Profile</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{% url 'Settings' %}" class="nav-link">
+                                            <a href="{% url 'OfficerSettings' %}" class="nav-link">
                                                 <i data-feather="settings"></i>
                                                 <span>Settings</span>
                                             </a>
@@ -84,49 +84,49 @@
                 <ul class="nav page-navigation">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'OfficerDashboard' %}">
-                            <i class="link-icon" data-feather="box"></i>
+                            <span class="iconify link-icon" data-icon="feather:box"></span>
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="mail"></i>
+                            <span class="iconify link-icon" data-icon="feather:file"></span>
                             <span class="menu-title">Cases</span>
                         </a>
                     </li>
                     <li class="nav-item mega-menu">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="feather"></i>
+                            <span class="iconify link-icon" data-icon="feather:folder"></span>
                             <span class="menu-title">Court Details</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="inbox"></i>
+                            <span class="iconify link-icon" data-icon="feather:users"></span>
                             <span class="menu-title">Accused</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="pie-chart"></i>
+                            <span class="iconify link-icon" data-icon="feather:archive"></span>
                             <span class="menu-title">Records</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="smile"></i>
+                            <span class="iconify link-icon" data-icon="feather:clock"></span>
                             <span class="menu-title">Shift</span>
                         </a>
                     </li>
                     <li class="nav-item mega-menu">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="book"></i>
+                            <span class="iconify link-icon" data-icon="feather:home"></span>
                             <span class="menu-title">Cells</span>
                         </a>
                     </li>
                     <li class="nav-item mega-menu">
                         <a href="#" class="nav-link">
-                            <i class="link-icon" data-feather="book"></i>
+                            <span class="iconify link-icon" data-icon="feather:file-text"></span>
                             <span class="menu-title">Other Documents</span>
                         </a>
                     </li>

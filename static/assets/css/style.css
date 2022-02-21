@@ -80,11 +80,6 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
 
-hr {
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible; }
-
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 0.5rem; }
@@ -360,10 +355,10 @@ h6, .h6 {
   line-height: 1.2; }
 
 hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1); }
+  border: none;
+  height: 0px;
+  border-top: 1px solid rgba(0,0,0,.1); 
+}
 
 small,
 .small {

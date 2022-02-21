@@ -107,7 +107,7 @@ class UpdateUserForm(forms.ModelForm):
 class UpdateProfileForm(forms.ModelForm):
     middle_name = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'Middle Name', 'readonly':'readonly'}))
     profile_picture = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'dropify', 'data-height':420, 'data-max-file-size':"1M"}))
-    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control mb-4', 'rows': 5, 'placeholder':'Keep it short, preferably in one concise sentence'}))
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control mb-4', 'style': "height: 150px", 'placeholder':'Keep it short, preferably in one concise sentence'}))
     national_id = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'National ID', 'readonly':'readonly'}))
     date_of_birth = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'Date Of Birth', 'readonly':'readonly'}))
     police_station = forms.ChoiceField(choices=STATIONS, required=True, widget=forms.Select(attrs={'class': 'form-control mb-4'}))
