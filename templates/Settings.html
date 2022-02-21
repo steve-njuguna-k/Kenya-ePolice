@@ -16,9 +16,9 @@
                     </div>
                     <div class="d-flex align-items-center flex-wrap text-nowrap">
                         <div class="dropdown">
-                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="btn-icon-prepend" data-feather="plus"></i>
-                            Create A New
+                                Create A New
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -48,7 +48,7 @@
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center text-center">
                                                 {% if profile_details.profile_picture %}
-                                                    <img src="{{ profile_details.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                                    <img src="{{ profile_details.profile_picture.url }}" alt="Profile Pic" class="rounded-circle" width="160">
                                                 {% else %}
                                                     <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
                                                 {% endif %}
@@ -66,19 +66,33 @@
                                 <div class="col-md-8">
                                     <div class="card mb-3">
                                         <div class="card-body">
-                                            <form method="POST" enctype="multipart/form-data">
+                                            <form method="POST" enctype="multipart/form-data needs-validation" novalidate>
                                                 {% csrf_token %}
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                        <div class="form-floating mb-3">
                                                             {{ form.old_password }}
+                                                            <label for="floatingInput">Old Password</label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Old Password Is Required!
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                        <div class="form-floating mb-3">
                                                             {{ form.new_password1 }}
+                                                            <label for="floatingInput">New Password</label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                New Password Is Required!
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -92,15 +106,32 @@
                                                 </span>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        <div class="form-group">
+                                                        <div class="form-floating mb-3">
                                                             {{ form.new_password2 }}
+                                                            <label for="floatingInput">Confirm Password</label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Confirm Password Is Required!
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 10px;">Save Changes</button>
-                                                <a href="#" name="MyProfile">
-                                                    <button type="button" class="btn btn-dark btn-lg btn-block" style="background-color: #000000!important;">Cancel</button>
-                                                </a>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-floating mb-3">
+                                                            <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 10px;">Save Changes</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-floating mb-3">
+                                                            <a href="#" name='MyProfile'>
+                                                                <button type="button" class="btn btn-dark btn-lg btn-block">Cancel</button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

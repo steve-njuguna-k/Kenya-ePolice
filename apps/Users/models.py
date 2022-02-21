@@ -20,7 +20,6 @@ ROLES = [
 ]
 
 COUNTIES = [
-    ('', ('Choose')), 
     ('Baringo', ('Baringo')),
     ('Bomet', ('Bomet')),
     ('Bungoma ', ('Bungoma ')),

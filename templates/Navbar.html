@@ -22,12 +22,20 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown nav-profile">
                             <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="https://via.placeholder.com/30x30" alt="profile">
+                                {% if user.profile.profile_picture %}
+                                    <img class="rounded-circle" src="{{ user.profile.profile_picture.url }}" height="25" width="25">
+                                {% else%}
+                                    <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" height="25" width="25">
+                                {% endif %}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="profileDropdown">
                                 <div class="dropdown-header d-flex flex-column align-items-center">
                                     <div class="figure mb-3">
-                                        <img src="https://via.placeholder.com/80x80" alt="">
+                                        {% if user.profile.profile_picture %}
+                                            <img class="rounded-circle" src="{{ user.profile.profile_picture.url }}" height="25" width="25">
+                                        {% else%}
+                                            <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" height="25" width="25">
+                                        {% endif %}
                                     </div>
                                     <div class="info text-center">
                                         <p class="name font-weight-bold mb-0">{{ user.first_name }} {{ user.last_name }}</p>
@@ -43,7 +51,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="javascript:;" class="nav-link">
+                                            <a href="{% url 'EditProfile' %}" class="nav-link">
                                                 <i data-feather="edit"></i>
                                                 <span>Edit Profile</span>
                                             </a>

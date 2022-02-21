@@ -1,0 +1,245 @@
+{% extends "Dashboard Base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="main-wrapper">
+
+        {% include 'Navbar.html' %}
+
+        <div class="page-wrapper">
+
+            <div class="page-content">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div>
+                        <h4 class="mb-3 mb-md-0">Edit Profile</h4>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap text-nowrap">
+                        <div class="dropdown">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="btn-icon-prepend" data-feather="plus"></i>
+                                Create A New
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <center>
+                        {% if messages %}
+                            {% for message in messages %} 
+                            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %} 
+                        {% endif %}
+                    </center>
+                    <div class="main-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="bio layout-spacing ">
+                                <div class="widget-content widget-content-area">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-12 col-md-4">
+                                            <div class="upload mt-4 pr-md-4">
+                                                {{ profile_form.profile_picture }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-8 col-lg-12 col-md-8 mt-md-0 mt-4">
+                                            <div class="form">
+                                                <h4>Personal Details</h4>
+                                                <hr>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ user_form.first_name }}
+                                                            <label for="floatingInput">First Name <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                First Name Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.middle_name }}
+                                                            <label for="floatingInput">Middle Name <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Middle Name Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ user_form.last_name }}
+                                                            <label for="floatingInput">Last Name <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Last Name Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.date_of_birth }}
+                                                            <label for="floatingInput">Date Of Birth <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Date Of Birth Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.national_id }}
+                                                            <label for="floatingInput">National ID Number <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                National ID Number Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ user_form.email }}
+                                                            <label for="floatingInput">Email Address <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Email Address Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.bio }}
+                                                            <label for="floatingInput">Bio <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Bio Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.gender }}
+                                                            <label for="floatingInput">Gender <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Gender Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <h4>Officer Details</h4>
+                                                <hr>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.role }}
+                                                            <label for="floatingInput">Role <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Role Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ user_form.username }}
+                                                            <label for="floatingInput">Officer Number <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Officer Number Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.police_station }}
+                                                            <label for="floatingInput">Police Station <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                Police Station Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-floating mb-3">
+                                                            {{ profile_form.county }}
+                                                            <label for="floatingInput">County <span class="text-danger">*</span></label>
+                                                            <div class="valid-feedback">
+                                                                Looks good!
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                County Is Required!
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-floating mb-3">
+                                                            <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 10px;">Save Changes</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-floating mb-3">
+                                                            <a href="#" name='MyProfile'>
+                                                                <button type="button" class="btn btn-dark btn-lg btn-block">Cancel</button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div> 
+            </div>
+        </div>    
+    </div>
+
+{% endblock %}

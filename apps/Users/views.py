@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import update_session_auth_hash
-from apps.Users.forms import PasswordChangeForm
+from apps.Users.forms import PasswordChangeForm, UpdateProfileForm, UpdateUserForm
 from apps.Users.models import Profile
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
@@ -150,14 +150,64 @@ def Settings(request):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, '✅ Your Password Has Been Updated Successfully!')
-            return redirect("Settings", username=username)
+            return redirect("Settings")
         else:
             messages.error(request, "⚠️ Your Password Wasn't Updated!")
-            return redirect("Settings", username=username)
+            return redirect("Settings")
     else:
         form = PasswordChangeForm(data=request.POST, user=request.user)
     
     return render(request, "Settings.html", {'form': form, 'profile_details':profile_details})
+
+@login_required(login_url='Login')
+def EditProfile(request):
+    user = request.user
+    profile_details = Profile.objects.get(user = user.id)
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            profile_picture = profile_form.cleaned_data['profile_picture']
+            middle_name = profile_form.cleaned_data['middle_name']
+            bio = profile_form.cleaned_data['bio']
+            national_id = profile_form.cleaned_data['national_id']
+            date_of_birth = profile_form.cleaned_data['date_of_birth']
+            police_station = profile_form.cleaned_data['police_station']
+            gender = profile_form.cleaned_data['gender']
+            role = profile_form.cleaned_data['role']
+            county = profile_form.cleaned_data['county']
+
+            first_name = user_form.cleaned_data['first_name']
+            last_name = user_form.cleaned_data['last_name']
+            username = user_form.cleaned_data['username']
+
+            user.username = username
+            user.first_name = first_name
+            user.last_name = last_name
+
+            profile_details.national_id = national_id
+            profile_details.bio = bio
+            profile_details.profile_picture = profile_picture
+            profile_details.middle_name = middle_name
+            profile_details.date_of_birth = date_of_birth
+            profile_details.police_station = police_station
+            profile_details.gender = gender
+            profile_details.role = role
+            profile_details.county = county
+
+            user.save()
+            profile_details.save()
+            messages.success(request, '✅ Your Profile Details Has Been Updated Successfully!')
+            return redirect('EditProfile')
+        else:
+            messages.error(request, "⚠️ Your Profile Wasn't Updated!")
+            return redirect('EditProfile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'Edit Profile.html', {'user_form': user_form, 'profile_form': profile_form, 'profile_details':profile_details})
 
 @login_required(login_url='Login')
 def OCSDashboard(request):
