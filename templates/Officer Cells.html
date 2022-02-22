@@ -1,0 +1,469 @@
+{% extends "Dashboard Base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="main-wrapper">
+
+        {% include 'Navbar.html' %}
+
+        <div class="page-wrapper">
+
+            <div class="page-content">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div>
+                        <h4 class="page-title text-primary"><b>All Cell Information</b></h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'OfficerDashboard' %}" name = 'Dashboard'>Home</a></li>
+                            <li class="breadcrumb-item active">All Cell Information</li>
+                        </ol>
+                        <br>
+                        <h5>Here is the list of all the cell info.</h5>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap text-nowrap">
+                        <div class="d-flex align-items-center flex-wrap text-nowrap">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button" data-toggle="modal" data-target="#staticBackdrop" id="cn-create">
+                                <i class="btn-icon-prepend" data-feather="plus"></i>
+                                New Cell Record
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <center>
+                        {% if messages %}
+                            {% for message in messages %} 
+                            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %} 
+                        {% endif %}
+                    </center>
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                            <th class="pt-0">#</th>
+                                            <th class="pt-0">First Name</th>
+                                            <th class="pt-0">Middle Name</th>
+                                            <th class="pt-0">Last Name</th>
+                                            <th class="pt-0">Occupied On</th>
+                                            <th class="pt-0">Vaccated On</th>
+                                            <th class="pt-0">Status</th>
+                                            <th class="pt-0">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for cell in cells %}
+                                                <tr>
+                                                    <td>{{ cell.cell_number }}</td>
+                                                    <td>{{ cell.accused_person.first_name }}</td>
+                                                    <td>{{ cell.accused_person.middle_name }}</td>
+                                                    <td>{{ cell.accused_person.last_name }}</td>
+                                                    <td>{{ cell.occupied_on }}</span></td>
+                                                    <td>{{ cell.vaccated_on }}</td>
+                                                    <td>
+                                                        {% if cell.cell_status == 'Occupied' %}
+                                                        <span class="badge badge-danger">{{ cell.cell_status }}</span>
+                                                        {% elif cell.cell_status == 'Empty' %}
+                                                        <span class="badge badge-success">{{ cell.cell_status }}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'ViewCellDetails' cell.id %}" data-toggle="modal" data-target="#exampleModal2{{ cell.id }}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
+                                                        </a>
+                                                        <a href="{% url 'EditCellInfo' cell.id %}" data-toggle="modal" data-target="#exampleModal3{{ cell.id }}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
+                                                        </a>
+                                                        <a href="#" data-toggle="modal" data-target="#exampleModal4{{ cell.id }}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm mr-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class=""></span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> 
+                          </div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Cell Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <form method="POST" action="{% url 'AddCellInfo' %}" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.cell_number }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Cell Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Cell Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select name="accused_person" class="form-control mb-4" placeholder="Select Accused Person">
+                                            <option value="" selected disabled>Select Accused Person</option>
+                                            {% for pk, first_name in form.fields.accused_person.choices %}
+                                            <option value="{{ pk }}"> {{ first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Accused Person</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Accused Person Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.occupied_on }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Occupied Date</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Occupied Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.vaccated_on }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Vaccated Date</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Vaccated Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.cell_status }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Cell Status</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Cell Status Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Case Record</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    {% for cell in cells %}
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="exampleModal3{{ cell.id }}" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ cell.id }}">Edit Cell Information Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <form method="POST" action="{% url 'EditCellInfo' cell.id %}" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="cell_number" id="cell_number" placeholder="name@example.com" value="{{ cell.cell_number }}" readonly>
+                                        <label for="floatingInputGrid" style="color: #000000;">Cell Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Cell Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="accused_person" id="floatingSelect" aria-label="Floating label select example" value="{{ cell.accused_person }}" required>
+                                            <option value="{{ cell.accused_person }}" disabled>
+                                                {% if cell.accused_person.selected %} selected {% endif %}
+                                                {{ cell.accused_person }}
+                                            </option>
+                                            {% for pk, first_name in form.fields.accused_person.choices %}
+                                            <option value="{{ pk }}"> {{ first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Accused Person</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Accused Person Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>               
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="occupied_on" id="occupied_on" placeholder="name@example.com" value="{{ cell.occupied_on|date:"Y-m-d" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Occupy Date</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Case Occupy Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="vaccated_on" id="vaccated_on" placeholder="name@example.com" value="{{ cell.vaccated_on|date:"Y-m-d" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Cell Vaccated Date</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Case Vaccated Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="cell_status" id="floatingSelect" aria-label="Floating label select example" value="{{ cell.case_status }}" required>
+                                            <option value="{{ cell.cell_status }}">
+                                                {% if cell.cell_status.selected %} selected {% endif %}
+                                                {{ cell.cell_status }}
+                                            </option>
+                                            {% if cell.cell_status != 'Occupied' %}
+                                            <option value="Occupied">Occupied</option>
+                                            {% endif %}
+                                            {% if cell.cell_status != 'Empty' %}
+                                            <option value="Empty">Empty</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingSelect" style="color: #000000;">Cell Status</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Cell Status Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- View Modal -->
+    {% for cell in cells %}
+        <div class="modal fade" id="exampleModal2{{ cell.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ cell.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ cell.id }}">Cell Information Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="main-body">
+                        <div class="row gutters-sm">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            {% if cell.accused_person.profile_picture %}
+                                                <img src="{{ cell.accused_person.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                            {% else %}
+                                                <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Full Names</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.accused_person.first_name }} {{ cell.accused_person.middle_name }} {{ cell.accused_person.last_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Date of Birth</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.accused_person.date_of_birth }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Gender</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.accused_person.gender }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">ID Number</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.accused_person.national_id }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Arrest Status</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if cell.accused_person.arrest_status == 'Free' %}
+                                                <span class="badge badge-success">{{ cell.accused_person.arrest_status }}</span>
+                                                {% elif cell.accused_person.arrest_status == 'Convicted' %}
+                                                <span class="badge badge-danger">{{ cell.accused_person.arrest_status }}</span>
+                                                {% elif cell.accused_person.arrest_status == 'In Custody' %}
+                                                <span class="badge badge-warning">{{ cell.accused_person.arrest_status }}</span>
+                                                {% elif cell.accused_person.arrest_status == 'Out On Bond' %}
+                                                <span class="badge badge-secondary">{{ cell.accused_person.arrest_status }}</span>
+                                                {% else %}
+                                                <span class="badge badge-info">{{ cell.accused_person.arrest_status }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Cell Number</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.cell_number }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Occupied Date</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.occupied_on }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Vaccated Date</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ cell.vaccated_on }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Cell Status</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if cell.cell_status == 'Occupied' %}
+                                                <span class="badge badge-danger">{{ cell.cell_status }}</span>
+                                                {% elif cell.cell_status == 'Empty' %}
+                                                <span class="badge badge-success">{{ cell.cell_status }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Delete Modal -->
+    {% for cell in cells %}
+    <div class="modal fade" id="exampleModal4{{ cell.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ cell.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel{{ cell.id }}">Delete Cell Information Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Are you sure you want to delete {{ cell.accused_person.first_name }} {{ cell.accused_person.last_name }}'s cell record? <span class="text-danger">( This can't be undone )</span>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="/cell/{{ cell.id }}/delete">
+                <button type="submit" class="btn btn-danger">Delete Record</button>
+            </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

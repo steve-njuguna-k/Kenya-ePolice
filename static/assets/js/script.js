@@ -48,3 +48,18 @@ $('#c-create').click(function(){
     return invoice_number;
   });
 });
+
+$('#cn-create').click(function(){
+
+  $("#case_number").val(function() {
+    let getRandomId = (min = 0, max = 100) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      let num =  Math.floor(Math.random() * (max - min + 1)) + min;
+      return num.toString().padStart(3, "0")
+    };
+          
+    invoice_number = 'CLN' + getRandomId()
+    return invoice_number;
+  });
+});

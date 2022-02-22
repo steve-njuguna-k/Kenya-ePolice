@@ -41,7 +41,6 @@ def AddCase(request):
 
             else:
                 accused_person_obj = AccusedPerson.objects.get(pk=int(accused_person))
-                print(accused_person_obj)
                 new_case = Case(case_number = case_number, accused_person = accused_person_obj, cause_of_arrest = cause_of_arrest, crime_category = crime_category, arrest_location = arrest_location, police_station=police_station, county=county, case_started_on=case_started_on, case_concluded_on=case_concluded_on, case_status=case_status, created_by=profile)
                 new_case.save()
                 messages.success(request, '✅ Case Record Successfully Created!')

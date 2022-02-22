@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'apps.Users',
     'apps.Accused',
     'apps.Cases',
+    'apps.Cells',
     'django_cleanup.apps.CleanupConfig',
     'cloudinary',
 ]
