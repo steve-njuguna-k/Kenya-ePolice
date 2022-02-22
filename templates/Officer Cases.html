@@ -13,19 +13,19 @@
 
                 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
                     <div>
-                        <h4 class="page-title text-primary"><b>All Arrested People</b></h4>
+                        <h4 class="page-title text-primary"><b>All Criminal Cases</b></h4>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'OfficerDashboard' %}" name = 'Dashboard'>Home</a></li>
-                            <li class="breadcrumb-item active">All Arrested People</li>
+                            <li class="breadcrumb-item active">All Cases</li>
                         </ol>
                         <br>
-                        <h5>Here is the list of all your arrested people.</h5>
+                        <h5>Here is the list of all your cases.</h5>
                     </div>
                     <div class="d-flex align-items-center flex-wrap text-nowrap">
                         <div class="d-flex align-items-center flex-wrap text-nowrap">
-                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button" data-toggle="modal" data-target="#staticBackdrop" id="ar-create">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button" data-toggle="modal" data-target="#staticBackdrop" id="c-create">
                                 <i class="btn-icon-prepend" data-feather="plus"></i>
-                                New Arrest Record
+                                New Case Record
                             </button>
                         </div>
                     </div>
@@ -50,47 +50,43 @@
                                         <thead>
                                             <tr>
                                             <th class="pt-0">#</th>
-                                            <th class="pt-0">First Name</th>
-                                            <th class="pt-0">Middle Name</th>
-                                            <th class="pt-0">Last Name</th>
-                                            <th class="pt-0">Gender</th>
-                                            <th class="pt-0">ID No.</th>
-                                            <th class="pt-0">Arrested On</th>
-                                            <th class="pt-0">Arrest Status</th>
+                                            <th class="pt-0">Full Names</th>
+                                            <th class="pt-0">Cause of Arrest</th>
+                                            <th class="pt-0">Category</th>
+                                            <th class="pt-0">Location</th>
+                                            <th class="pt-0">Start Date</th>
+                                            <th class="pt-0">End Date</th>
+                                            <th class="pt-0">Case Status</th>
                                             <th class="pt-0">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for person in accused %}
+                                            {% for case in cases %}
                                                 <tr>
-                                                    <td>{{ person.arrest_number }}</td>
-                                                    <td>{{ person.first_name }}</td>
-                                                    <td>{{ person.middle_name }}</td>
-                                                    <td>{{ person.last_name }}</td>
-                                                    <td>{{ person.gender }}</span></td>
-                                                    <td>{{ person.national_id }}</td>
-                                                    <td>{{ person.arrested_on }}</td>
+                                                    <td>{{ case.case_number }}</td>
+                                                    <td>{{ case.accused_person }}</td>
+                                                    <td>{{ case.cause_of_arrest }}</td>
+                                                    <td>{{ case.crime_category }}</td>
+                                                    <td>{{ case.arrest_location }}</span></td>
+                                                    <td>{{ case.case_started_on }}</td>
+                                                    <td>{{ case.case_concluded_on }}</td>
                                                     <td>
-                                                        {% if person.arrest_status == 'Free' %}
-                                                        <span class="badge badge-success">{{ person.arrest_status }}</span>
-                                                        {% elif person.arrest_status == 'Convicted' %}
-                                                        <span class="badge badge-danger">{{ person.arrest_status }}</span>
-                                                        {% elif person.arrest_status == 'In Custody' %}
-                                                        <span class="badge badge-warning">{{ person.arrest_status }}</span>
-                                                        {% elif person.arrest_status == 'Out On Bond' %}
-                                                        <span class="badge badge-secondary">{{ person.arrest_status }}</span>
-                                                        {% else %}
-                                                        <span class="badge badge-info">{{ person.arrest_status }}</span>
+                                                        {% if case.case_status == 'Complete' %}
+                                                        <span class="badge badge-success">{{ case.case_status }}</span>
+                                                        {% elif case.case_status == 'Not Started' %}
+                                                        <span class="badge badge-danger">{{ case.case_status }}</span>
+                                                        {% elif case.case_status == 'Ongoing' %}
+                                                        <span class="badge badge-warning">{{ case.case_status }}</span>
                                                         {% endif %}
                                                     </td>
                                                     <td>
-                                                        <a href="{% url 'ViewArrestedPersonDetails' person.id %}" data-toggle="modal" data-target="#exampleModal2{{ person.id }}">
+                                                        <a href="{% url 'ViewCaseDetails' case.id %}" data-toggle="modal" data-target="#exampleModal2{{ case.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
                                                         </a>
-                                                        <a href="{% url 'EditArrestedPerson' person.id %}" data-toggle="modal" data-target="#exampleModal3{{ person.id }}">
+                                                        <a href="{% url 'EditCase' case.id %}" data-toggle="modal" data-target="#exampleModal3{{ case.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
                                                         </a>
-                                                        <a href="#" data-toggle="modal" data-target="#exampleModal4{{ person.id }}">
+                                                        <a href="#" data-toggle="modal" data-target="#exampleModal4{{ case.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm mr-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class=""></span>
                                                         </a>
                                                     </td>
@@ -119,54 +115,59 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="{% url 'AddArrestedPerson' %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'AddCase' %}" class="needs-validation" novalidate>
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Arrest Number</label>
+                                        {{ form.case_number }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Number</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Arrest Number Is Required!
+                                            Case Number Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                                        <select name="accused_person" class="form-control mb-4" placeholder="Select Accused Person">
+                                            <option value="" selected disabled>Select Accused Person</option>
+                                            {% for pk, first_name in form.fields.accused_person.choices %}
+                                            <option value="{{ pk }}"> {{ first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Accused Person</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            First Name Is Required!
+                                            Accused Person Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                                        {{ form.cause_of_arrest }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Cause of Arrest</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Middle Name Is Required!
+                                            Cause of Arrest Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                                        {{ form.crime_category }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Crime Category</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Last Name Is Required!
+                                            Crime Category Is Required!
                                         </div>
                                     </div>
                                 </div>
@@ -174,41 +175,37 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
+                                        {{ form.arrest_location }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Arrest Location</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Date Of Birth Is Required!
+                                            Arrest Location Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" required>
-                                            <option value="" selected disabled>Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                        <label for="floatingSelect" style="color: #000000;">Gender</label>
+                                        {{ form.police_station }}
+                                        <label for="floatingSelect" style="color: #000000;">Police Station</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Gender Is Required!
+                                            Police Station Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
+                                        {{ form.county }}
+                                        <label for="floatingInputGrid" style="color: #000000;">County</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            ID Number Is Required!
+                                            County Is Required!
                                         </div>
                                     </div>
                                 </div>
@@ -216,51 +213,44 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Picture</label>
+                                        {{ form.case_started_on }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Start Date</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Picture Is Required!
+                                            Case Start Date Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
+                                        {{ form.case_concluded_on }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Concluded On</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Arrested On Date Is Required!
+                                            Case Concluded On Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" required>
-                                            <option value="" selected disabled>Arrest Status</option>
-                                            <option value="Free">Free</option>
-                                            <option value="Convicted">Convicted</option>
-                                            <option value="In Custody">In Custody</option>
-                                            <option value="Out On Bond">Out On Bond</option>
-                                            <option value="Out On Cash Bail">Out On Cash Bail</option>
-                                        </select>
-                                        <label for="floatingSelect" style="color: #000000;">Arrest Status</label>
+                                        {{ form.case_status }}
+                                        <label for="floatingSelect" style="color: #000000;">Case Status</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Arrest Status Is Required!
+                                            Case Status Is Required!
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add Record</button>
+                                <button type="submit" class="btn btn-primary">Add Case Record</button>
                             </div>
                         </form>
                     </div>
@@ -270,36 +260,36 @@
     </div>
 
     <!-- Edit Modal -->
-    {% for person in accused %}
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="exampleModal3{{ person.id }}" data-backdrop="static" data-keyboard="false">
+    {% for case in cases %}
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="exampleModal3{{ case.id }}" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel{{ person.id }}">Edit Arrested Person Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Edit Arrested Person Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="{% url 'EditArrestedPerson' person.id %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'EditArrestedPerson' case.id %}" enctype="multipart/form-data" class="needs-validation" novalidate>
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="{{ person.arrest_number }}" readonly>
-                                        <label for="floatingInputGrid" style="color: #000000;">Arrest Number</label>
+                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="{{ case.arrest_number }}" readonly>
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Number</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Arrest Number Is Required!
+                                            Case Number Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.first_name }}" required>
+                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.first_name }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">First Name</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -311,19 +301,19 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.middle_name }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.middle_name }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Cause of Arrest</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Middle Name Is Required!
+                                            Cause of Arrest Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.last_name }}" required>
+                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.last_name }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -337,7 +327,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.date_of_birth|date:'SHORT_DATE_FORMAT' }}" required>
+                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.date_of_birth|date:"SHORT_DATE_FORMAT" }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -349,12 +339,12 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" value="{{ person.gender }}" required>
-                                            <option value="{{ person.gender }}">
-                                                {% if person.gender.selected %} selected {% endif %}
-                                                {{ person.gender }}
+                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" value="{{ case.gender }}" required>
+                                            <option value="{{ case.gender }}">
+                                                {% if case.gender.selected %} selected {% endif %}
+                                                {{ case.gender }}
                                             </option>
-                                            {% if person.gender != 'Male' %}
+                                            {% if case.gender != 'Male' %}
                                             <option value="Male">Male</option>
                                             {% else %}
                                             <option value="Female">Female</option>
@@ -371,7 +361,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.national_id }}" required>
+                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.national_id }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -385,7 +375,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.profile_picture }}" required>
+                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.profile_picture }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Picture</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -397,7 +387,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.arrested_on|date:"SHORT_DATE_FORMAT" }}" required>
+                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.arrested_on|date:"SHORT_DATE_FORMAT" }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -410,23 +400,23 @@
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" value="" required>
-                                            <option value="{{ person.arrest_status }}">
-                                                {% if person.gender.selected %} selected {% endif %}
-                                                {{ person.arrest_status }}
+                                            <option value="{{ case.arrest_status }}">
+                                                {% if case.gender.selected %} selected {% endif %}
+                                                {{ case.arrest_status }}
                                             </option>
-                                            {% if person.arrest_status != 'Free' %}
+                                            {% if case.arrest_status != 'Free' %}
                                             <option value="Free">Free</option>
                                             {% endif %}
-                                            {% if person.arrest_status != 'Convicted' %}
+                                            {% if case.arrest_status != 'Convicted' %}
                                             <option value="Convicted">Convicted</option>
                                             {% endif %}
-                                            {% if person.arrest_status != 'In Custody' %}
+                                            {% if case.arrest_status != 'In Custody' %}
                                             <option value="In Custody">In Custody</option>
                                             {% endif %}
-                                            {% if person.arrest_status != 'Out On Bond' %}
+                                            {% if case.arrest_status != 'Out On Bond' %}
                                             <option value="Out On Bond">Out On Bond</option>
                                             {% endif %}
-                                            {% if person.arrest_status != 'Out On Cash Bail' %}
+                                            {% if case.arrest_status != 'Out On Cash Bail' %}
                                             <option value="Out On Cash Bail">Out On Cash Bail</option>
                                             {% endif %}
                                         </select>
@@ -453,12 +443,12 @@
     {% endfor %}
 
     <!-- View Modal -->
-    {% for person in accused %}
-        <div class="modal fade" id="exampleModal2{{ person.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ person.id }}" aria-hidden="true">
+    {% for case in cases %}
+        <div class="modal fade" id="exampleModal2{{ case.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ case.id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel{{ person.id }}">Arrested Person Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Arrested Person Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -470,8 +460,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
-                                            {% if person.profile_picture %}
-                                                <img src="{{ person.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                            {% if case.profile_picture %}
+                                                <img src="{{ case.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
                                             {% else %}
                                                 <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
                                             {% endif %}
@@ -480,26 +470,26 @@
                                 </div>
                                 <div class="card mt-3">
                                     <ul class="list-group list-group-flush">
-                                        {% if person.arrested_on %}
+                                        {% if case.arrested_on %}
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">Arrested On</h6>
-                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ person.arrested_on }}</span>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ case.arrested_on }}</span>
                                         </li>
                                         {% endif %}
-                                        {% if person.arrest_status %}
+                                        {% if case.arrest_status %}
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">Arrest Status</h6>
                                             <span class="text-primary"><i class="fa-solid fa-link"></i>
-                                                {% if person.arrest_status == 'Free' %}
-                                                <span class="badge badge-success">{{ person.arrest_status }}</span>
-                                                {% elif person.arrest_status == 'Convicted' %}
-                                                <span class="badge badge-danger">{{ person.arrest_status }}</span>
-                                                {% elif person.arrest_status == 'In Custody' %}
-                                                <span class="badge badge-warning">{{ person.arrest_status }}</span>
-                                                {% elif person.arrest_status == 'Out On Bond' %}
-                                                <span class="badge badge-secondary">{{ person.arrest_status }}</span>
+                                                {% if case.arrest_status == 'Free' %}
+                                                <span class="badge badge-success">{{ case.arrest_status }}</span>
+                                                {% elif case.arrest_status == 'Convicted' %}
+                                                <span class="badge badge-danger">{{ case.arrest_status }}</span>
+                                                {% elif case.arrest_status == 'In Custody' %}
+                                                <span class="badge badge-warning">{{ case.arrest_status }}</span>
+                                                {% elif case.arrest_status == 'Out On Bond' %}
+                                                <span class="badge badge-secondary">{{ case.arrest_status }}</span>
                                                 {% else %}
-                                                <span class="badge badge-info">{{ person.arrest_status }}</span>
+                                                <span class="badge badge-info">{{ case.arrest_status }}</span>
                                                 {% endif %}
                                             </span>
                                         </li>
@@ -515,16 +505,16 @@
                                                 <h6 class="mb-0">First Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ person.first_name }}
+                                                {{ case.first_name }}
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">Middle Name</h6>
+                                                <h6 class="mb-0">Cause of Arrest</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ person.middle_name }}
+                                                {{ case.middle_name }}
                                             </div>
                                         </div>
                                         <hr>
@@ -533,7 +523,7 @@
                                                 <h6 class="mb-0">Last Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ person.last_name }}
+                                                {{ case.last_name }}
                                             </div>
                                         </div>
                                         <hr>
@@ -542,8 +532,8 @@
                                                 <h6 class="mb-0">ID Number</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if person.national_id %}
-                                                {{ person.national_id }}
+                                                {% if case.national_id %}
+                                                {{ case.national_id }}
                                                 {% else %}
                                                 Not Selected
                                                 {% endif %}
@@ -555,8 +545,8 @@
                                                 <h6 class="mb-0">Date Of Birth</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if person.date_of_birth %}
-                                                    {{ person.date_of_birth }}
+                                                {% if case.date_of_birth %}
+                                                    {{ case.date_of_birth }}
                                                 {% else %}
                                                     Not Selected
                                                 {% endif %}
@@ -568,8 +558,8 @@
                                                 <h6 class="mb-0">Gender</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if person.gender %}
-                                                    {{ person.gender }}
+                                                {% if case.gender %}
+                                                    {{ case.gender }}
                                                 {% else %}
                                                     Not Selected
                                                 {% endif %}
@@ -590,22 +580,22 @@
     {% endfor %}
 
     <!-- Delete Modal -->
-    {% for person in accused %}
-    <div class="modal fade" id="exampleModal4{{ person.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ person.id }}" aria-hidden="true">
+    {% for case in cases %}
+    <div class="modal fade" id="exampleModal4{{ case.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ case.id }}" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel{{ person.id }}">Delete Arrested Person Record</h5>
+            <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Delete Arrested Person Record</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body">
-            Are you sure you want to delete {{ person.first_name }} {{ person.last_name }}'s record? <span class="text-danger">( This can't be undone )</span>
+            Are you sure you want to delete {{ case.first_name }} {{ case.last_name }}'s record? <span class="text-danger">( This can't be undone )</span>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <a href="/accused/person/{{ person.id }}/delete">
+            <a href="/cases/person/{{ case.id }}/delete">
                 <button type="submit" class="btn btn-danger">Delete Record</button>
             </a>
             </div>
