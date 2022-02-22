@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from apps.Accused.models import AccusedPerson
-from apps.Cases.forms import AddCaseForm
+from apps.Cases.forms import AddCaseForm, EditCaseForm
 from apps.Cases.models import Case
 from apps.Users.models import Profile
 
@@ -42,7 +42,7 @@ def AddCase(request):
             else:
                 accused_person_obj = AccusedPerson.objects.get(pk=int(accused_person))
                 print(accused_person_obj)
-                new_case = Case(case_number = case_number, accused_person = accused_person_obj, cause_of_arrest = cause_of_arrest, crime_category = crime_category, arrest_location = arrest_location, county=county, case_started_on=case_started_on, case_concluded_on=case_concluded_on, case_status=case_status, created_by=profile)
+                new_case = Case(case_number = case_number, accused_person = accused_person_obj, cause_of_arrest = cause_of_arrest, crime_category = crime_category, arrest_location = arrest_location, police_station=police_station, county=county, case_started_on=case_started_on, case_concluded_on=case_concluded_on, case_status=case_status, created_by=profile)
                 new_case.save()
                 messages.success(request, '✅ Case Record Successfully Created!')
                 return redirect('OfficerCases')
@@ -54,38 +54,45 @@ def AddCase(request):
     return redirect('OfficerCases')
 
 def EditCase(request, id):
-    person = Case.objects.get(id=id)
-    print(person)
+    case = Case.objects.get(id=id)
+    profile = request.user
+
     if request.method == 'POST':
         context = {'has_error': False}
-        arrest_number = request.POST['arrest_number']
-        first_name = request.POST['first_name']
-        middle_name = request.POST['middle_name']
-        last_name = request.POST['last_name']
-        date_of_birth = request.POST['date_of_birth']
-        gender = request.POST['gender']
-        national_id = request.POST['national_id']
-        profile_picture = request.FILES['profile_picture']
-        arrest_status = request.POST['arrest_status']
-        arrested_on = request.POST['arrested_on']
+        case_number = request.POST['case_number']
+        accused_person = request.POST['accused_person']
+        cause_of_arrest = request.POST['cause_of_arrest']
+        crime_category = request.POST['crime_category']
+        arrest_location = request.POST['arrest_location']
+        police_station = request.POST['police_station']
+        county = request.POST['county']
+        case_started_on = request.POST['case_started_on']
+        case_concluded_on = request.POST['case_concluded_on']
+        case_status = request.POST['case_status']
 
-        person.arrest_number = arrest_number
-        person.first_name = first_name
-        person.middle_name = middle_name
-        person.last_name = last_name
-        person.date_of_birth = date_of_birth
-        person.gender = gender
-        person.national_id = national_id
-        person.profile_picture = profile_picture
-        person.arrest_status = arrest_status
-        person.arrested_on = arrested_on
-        person.created_by = request.user
+        case.case_number = case_number
+        case.accused_person = AccusedPerson.objects.get(pk=int(accused_person))
+        case.cause_of_arrest = cause_of_arrest
+        case.crime_category = crime_category
+        case.arrest_location = arrest_location
+        case.police_station = police_station
+        case.county = county
+        case.case_started_on = case_started_on
+        case.case_concluded_on = case_concluded_on
+        case.case_status = case_status
+        case.created_by = request.user
+
+        police_station_member = Profile.objects.filter(user = profile, police_station = police_station)
+
+        if not police_station_member:
+            messages.error(request, "⚠️ You Must Choose Your Assigned Police Station!")
+            return redirect('OfficerCases')
 
         if not context['has_error']:
-            person.save()
+            case.save()
             messages.success(request, '✅ Case Record Successfully Updated!')
             return redirect('OfficerCases')
-        
+            
         else:
             messages.error(request, '⚠️ Case Record Was Not Updated!')
             return redirect('OfficerCases')
@@ -93,11 +100,11 @@ def EditCase(request, id):
     return redirect('OfficerCases')
 
 def ViewCaseDetails(request, id):
-    person_details = Case.objects.get(id=id)
-    return render(request, 'Officer Cases.html', {'person_details':person_details})
+    case_details = Case.objects.get(id=id)
+    return render(request, 'Officer Cases.html', {'case_details':case_details})
 
 def DeleteCase(request, id):
-    person_details = Case.objects.get(id=id)
-    person_details.delete()
+    case_details = Case.objects.get(id=id)
+    case_details.delete()
     messages.success(request, '✅ Case Record Successfully Deleted!')
     return redirect('OfficerCases')

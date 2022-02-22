@@ -270,12 +270,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="{% url 'EditArrestedPerson' case.id %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'EditCase' case.id %}" class="needs-validation" novalidate>
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="{{ case.arrest_number }}" readonly>
+                                        <input type="text" class="form-control" name="case_number" id="case_number" placeholder="name@example.com" value="{{ case.case_number }}" readonly>
                                         <label for="floatingInputGrid" style="color: #000000;">Case Number</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -287,19 +287,27 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.first_name }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                                        <select class="form-select" name="accused_person" id="floatingSelect" aria-label="Floating label select example" value="{{ case.accused_person }}" required>
+                                            <option value="{{ case.accused_person }}" disabled>
+                                                {% if case.accused_person.selected %} selected {% endif %}
+                                                {{ case.accused_person }}
+                                            </option>
+                                            {% for pk, first_name in form.fields.accused_person.choices %}
+                                            <option value="{{ pk }}"> {{ first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Accused Person</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            First Name Is Required!
+                                            Accused Person Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.middle_name }}" required>
+                                        <input type="text" class="form-control" name="cause_of_arrest" id="cause_of_arrest" placeholder="name@example.com" value="{{ case.cause_of_arrest }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Cause of Arrest</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -311,13 +319,81 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.last_name }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                                        <select class="form-select" name="crime_category" id="floatingSelect" aria-label="Floating label select example" value="{{ case.crime_category }}" required>
+                                            <option value="{{ case.crime_category }}">
+                                                {% if case.crime_category.selected %} selected {% endif %}
+                                                {{ case.crime_category }}
+                                            </option>
+                                            {% if case.crime_category != 'Arson' %}
+                                            <option value="Arson">Arson</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Armed Robbery' %}
+                                            <option value="Armed Robbery">Armed Robbery</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Assault' %}
+                                            <option value="Assault">Assault</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Burglary' %}
+                                            <option value="Burglary">Burglary</option>
+                                            {% endif %}
+                                            {% if case.crime_category != "Carjacking" %}
+                                            <option value="Carjacking">Carjacking</option>
+                                            {% endif %}
+                                            {% if case.crime_category != "Cattle Rustling" %}
+                                            <option value="Cattle Rustling">Cattle Rustling</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Corruption' %}
+                                            <option value="Corruption">Corruption</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Drug Abuse' %}
+                                            <option value="Drug Abuse">Drug Abuse</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Drug Trafficking' %}
+                                            <option value="Drug Trafficking">Drug Trafficking</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Embezzlement' %}
+                                            <option value="Embezzlement">Embezzlement</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Fraud' %}
+                                            <option value="Fraud">Fraud</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Homicide' %}
+                                            <option value="Homicide">Homicide</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Human trafficking' %}
+                                            <option value="Human trafficking">Human trafficking</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Kidnapping' %}
+                                            <option value="Kidnapping">Kidnapping</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Mob Justice' %}
+                                            <option value="Mob Justice">Mob Justice</option>
+                                            {% endif %}
+                                            {% if case.crime_category != "Money Laundering" %}
+                                            <option value="Money Laundering">Money Laundering</option>
+                                            {% endif %}
+                                            {% if case.crime_category != "Massive Looting" %}
+                                            <option value="Massive Looting">Massive Looting</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Petty Theft' %}
+                                            <option value="Petty Theft">Petty Theft</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Pickpocketing' %}
+                                            <option value="Pickpocketing">Pickpocketing</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Rape' %}
+                                            <option value="Rape">Rape</option>
+                                            {% endif %}
+                                            {% if case.crime_category != 'Terrorism' %}
+                                            <option value="Terrorism">Terrorism</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Crime Category</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Last Name Is Required!
+                                            Crime Category Is Required!
                                         </div>
                                     </div>
                                 </div>
@@ -325,47 +401,218 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.date_of_birth|date:"SHORT_DATE_FORMAT" }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
+                                        <input type="text" class="form-control" name="arrest_location" id="arrest_location" placeholder="name@example.com" value="{{ case.arrest_location }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Arrest Location</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Date Of Birth Is Required!
+                                            Arrest Location Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" value="{{ case.gender }}" required>
-                                            <option value="{{ case.gender }}">
-                                                {% if case.gender.selected %} selected {% endif %}
-                                                {{ case.gender }}
+                                        <select class="form-select" name="police_station" id="floatingSelect" aria-label="Floating label select example" value="{{ case.police_station }}" required>
+                                            <option value="{{ case.police_station }}">
+                                                {% if case.police_station.selected %} selected {% endif %}
+                                                {{ case.police_station }}
                                             </option>
-                                            {% if case.gender != 'Male' %}
-                                            <option value="Male">Male</option>
-                                            {% else %}
-                                            <option value="Female">Female</option>
+                                            {% if case.police_station != 'Central Police Station' %}
+                                            <option value="Central Police Station">Central Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Kilimani Police Station' %}
+                                            <option value="Kilimani Police Station">Kilimani Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Embakasi Police Station' %}
+                                            <option value="Embakasi Police Station">Embakasi Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != "Lang'ata Police Station" %}
+                                            <option value="Lang'ata Police Station">Lang'ata Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != "Ong'ata Rongai Police Station" %}
+                                            <option value="Ong'ata Rongai Police Station">Ong'ata Rongai Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Buruburu Police Station' %}
+                                            <option value="Buruburu Police Station">Buruburu Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Kasarani Police Station' %}
+                                            <option value="Kasarani Police Station">Kasarani Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Parklands Police Station' %}
+                                            <option value="Parklands Police Station">Parklands Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Pangani Police Station' %}
+                                            <option value="Pangani Police Station">Pangani Police Station</option>
+                                            {% endif %}
+                                            {% if case.police_station != 'Muthaiga Police Station' %}
+                                            <option value="Muthaiga Police Station">Muthaiga Police Station</option>
                                             {% endif %}
                                         </select>
-                                        <label for="floatingSelect" style="color: #000000;">Gender</label>
+                                        <label for="floatingSelect" style="color: #000000;">Police Station</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Gender Is Required!
+                                            Police Station Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.national_id }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
+                                        <select class="form-select" name="county" id="floatingSelect" aria-label="Floating label select example" value="{{ case.county }}" required>
+                                            <option value="{{ case.county }}">
+                                                {% if case.county.selected %} selected {% endif %}
+                                                {{ case.county }}
+                                            </option>
+                                            {% if case.county != 'Baringo' %}
+                                            <option value='Baringo'>Baringo</option>
+                                            {% endif %}
+                                            {% if case.county != 'Bomet' %}
+                                            <option value='Bomet'>Bomet</option>
+                                            {% endif %}
+                                            {% if case.county != 'Bungoma' %}
+                                            <option value='Bungoma'>Bungoma</option>
+                                            {% endif %}
+                                            {% if case.county != 'Busia' %}
+                                            <option value='Busia'>Busia</option>
+                                            {% endif %}
+                                            {% if case.county != 'Elgeyo-Marakwet' %}
+                                            <option value='Elgeyo-Marakwet'>Elgeyo-Marakwet</option>
+                                            {% endif %}
+                                            {% if case.county != 'Embu' %}
+                                            <option value='Embu'>Embu</option>
+                                            {% endif %}
+                                            {% if case.county != 'Garissa' %}
+                                            <option value='Garissa'>Garissa</option>
+                                            {% endif %}
+                                            {% if case.county != 'Homa Bay' %}
+                                            <option value='Homa Bay'>Homa Bay</option>
+                                            {% endif %}
+                                            {% if case.county != 'Isiolo' %}
+                                            <option value='Isiolo'>Isiolo</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kajiado' %}
+                                            <option value='Kajiado'>Kajiado</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kakamega' %}
+                                            <option value='Kakamega'>Kakamega</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kericho' %}
+                                            <option value='Kericho'>Kericho</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kiambu' %}
+                                            <option value='Kiambu'>Kiambu</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kilifi' %}
+                                            <option value='Kilifi'>Kilifi</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kirinyaga' %}
+                                            <option value='Kirinyaga'>Kirinyaga</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kisii' %}
+                                            <option value='Kisii'>Kisii</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kisumu' %}
+                                            <option value='Kisumu'>Kisumu</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kitui' %}
+                                            <option value='Kitui'>Kitui</option>
+                                            {% endif %}
+                                            {% if case.county != 'Kwale' %}
+                                            <option value='Kwale'>Kwale</option>
+                                            {% endif %}
+                                            {% if case.county != 'Laikipia' %}
+                                            <option value='Laikipia'>Laikipia</option>
+                                            {% endif %}
+                                            {% if case.county != 'Lamu' %}
+                                            <option value='Lamu'>Lamu</option>
+                                            {% endif %}
+                                            {% if case.county != 'Machakos' %}
+                                            <option value='Machakos'>Machakos</option>
+                                            {% endif %}
+                                            {% if case.county != 'Makueni' %}
+                                            <option value='Makueni'>Makueni</option>
+                                            {% endif %}
+                                            {% if case.county != 'Mandera' %}
+                                            <option value='Mandera'>Mandera</option>
+                                            {% endif %}
+                                            {% if case.county != 'Marsabit' %}
+                                            <option value='Marsabit'>Marsabit</option>
+                                            {% endif %}
+                                            {% if case.county != 'Meru' %}
+                                            <option value='Meru'>Meru</option>
+                                            {% endif %}
+                                            {% if case.county != 'Migori' %}
+                                            <option value='Migori'>Migori</option>
+                                            {% endif %}
+                                            {% if case.county != 'Mombasa' %}
+                                            <option value='Mombasa'>Mombasa</option>
+                                            {% endif %}
+                                            {% if case.county != "Murang'a" %}
+                                            <option value="Murang'a">Murang'a</option>
+                                            {% endif %}
+                                            {% if case.county != 'Nairobi City' %}
+                                            <option value='Nairobi City'>Nairobi City</option>
+                                            {% endif %}
+                                            {% if case.county != 'Nakuru' %}
+                                            <option value='Nakuru'>Nakuru</option>
+                                            {% endif %}
+                                            {% if case.county != 'Nandi' %}
+                                            <option value='Nandi'>Nandi</option>
+                                            {% endif %}
+                                            {% if case.county != 'Narok' %}
+                                            <option value='Narok'>Narok</option>
+                                            {% endif %}
+                                            {% if case.county != 'Nyamira' %}
+                                            <option value='Nyamira'>Nyamira</option>
+                                            {% endif %}
+                                            {% if case.county != 'Nyandarua' %}
+                                            <option value='Nyandarua'>Nyandarua</option>
+                                            {% endif %}
+                                            {% if case.county != 'Nyeri' %}
+                                            <option value='Nyeri'>Nyeri</option>
+                                            {% endif %}
+                                            {% if case.county != 'Samburu' %}
+                                            <option value='Samburu'>Samburu</option>
+                                            {% endif %}
+                                            {% if case.county != 'Siaya' %}
+                                            <option value='Siaya'>Siaya</option>
+                                            {% endif %}
+                                            {% if case.county != 'Taita-Taveta' %}
+                                            <option value='Taita-Taveta'>Taita-Taveta</option>
+                                            {% endif %}
+                                            {% if case.county != 'Tana River' %}
+                                            <option value='Tana River'>Tana River</option>
+                                            {% endif %}
+                                            {% if case.county != 'Tharaka-Nithi' %}
+                                            <option value='Tharaka-Nithi'>Tharaka-Nithi</option>
+                                            {% endif %}
+                                            {% if case.county != 'Trans Nzoia' %}
+                                            <option value='Trans Nzoia'>Trans Nzoia</option>
+                                            {% endif %}
+                                            {% if case.county != 'Turkana' %}
+                                            <option value='Turkana'>Turkana</option>
+                                            {% endif %}
+                                            {% if case.county != 'Uasin Gishu' %}
+                                            <option value='Uasin Gishu'>Uasin Gishu</option>
+                                            {% endif %}
+                                            {% if case.county != 'Vihiga' %}
+                                            <option value='Vihiga'>Vihiga</option>
+                                            {% endif %}
+                                            {% if case.county != 'Wajir' %}
+                                            <option value='Wajir'>Wajir</option>
+                                            {% endif %}
+                                            {% if case.county != 'West Pokot' %}
+                                            <option value='West Pokot'>West Pokot</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">County</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            ID Number Is Required!
+                                            County Is Required!
                                         </div>
                                     </div>
                                 </div>
@@ -373,64 +620,58 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.profile_picture }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Picture</label>
+                                        <input type="date" class="form-control" name="case_started_on" id="case_started_on" placeholder="name@example.com" value="{{ case.case_started_on|date:"Y-m-d" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Start Date</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Picture Is Required!
+                                            Case Start Date Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="{{ case.arrested_on|date:"SHORT_DATE_FORMAT" }}" required>
-                                        <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
+                                        <input type="date" class="form-control" name="case_concluded_on" id="case_concluded_on" placeholder="name@example.com" value="{{ case.case_concluded_on|date:"Y-m-d" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Case Concluded On</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Arrested On Date Is Required!
+                                            Case Concluded On Is Required!
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" value="" required>
-                                            <option value="{{ case.arrest_status }}">
-                                                {% if case.gender.selected %} selected {% endif %}
-                                                {{ case.arrest_status }}
+                                        <select class="form-select" name="case_status" id="floatingSelect" aria-label="Floating label select example" value="{{ case.case_status }}" required>
+                                            <option value="{{ case.case_status }}">
+                                                {% if case.crime_category.selected %} selected {% endif %}
+                                                {{ case.case_status }}
                                             </option>
-                                            {% if case.arrest_status != 'Free' %}
-                                            <option value="Free">Free</option>
+                                            {% if case.case_status != 'Complete' %}
+                                            <option value="Complete">Complete</option>
                                             {% endif %}
-                                            {% if case.arrest_status != 'Convicted' %}
-                                            <option value="Convicted">Convicted</option>
+                                            {% if case.case_status != 'Ongoing' %}
+                                            <option value="Ongoing">Complete</option>
                                             {% endif %}
-                                            {% if case.arrest_status != 'In Custody' %}
-                                            <option value="In Custody">In Custody</option>
-                                            {% endif %}
-                                            {% if case.arrest_status != 'Out On Bond' %}
-                                            <option value="Out On Bond">Out On Bond</option>
-                                            {% endif %}
-                                            {% if case.arrest_status != 'Out On Cash Bail' %}
-                                            <option value="Out On Cash Bail">Out On Cash Bail</option>
+                                            {% if case.case_status != 'Not Started' %}
+                                            <option value="Not Started">Not Started</option>
                                             {% endif %}
                                         </select>
-                                        <label for="floatingSelect" style="color: #000000;">Arrest Status</label>
+                                        <label for="floatingSelect" style="color: #000000;">Case Status</label>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                            Arrest Status Is Required!
+                                            Case Status Is Required!
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add Record</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </form>
                     </div>
@@ -446,7 +687,7 @@
             <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Arrested Person Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Criminal Case Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -458,8 +699,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
-                                            {% if case.profile_picture %}
-                                                <img src="{{ case.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                            {% if case.accused_person.profile_picture %}
+                                                <img src="{{ case.accused_person.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
                                             {% else %}
                                                 <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
                                             {% endif %}
@@ -468,26 +709,44 @@
                                 </div>
                                 <div class="card mt-3">
                                     <ul class="list-group list-group-flush">
-                                        {% if case.arrested_on %}
+                                        {% if case.accused_person %}
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">Arrested On</h6>
-                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ case.arrested_on }}</span>
+                                            <h6 class="mb-0">Full Names</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ case.accused_person.first_name }} {{ case.accused_person.middle_name }} {{ case.accused_person.last_name }}</span>
                                         </li>
                                         {% endif %}
-                                        {% if case.arrest_status %}
+                                        {% if case.accused_person.date_of_birth %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">Date Of Birth</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ case.accused_person.date_of_birth }}</span>
+                                        </li>
+                                        {% endif %}
+                                        {% if case.accused_person.gender %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">Gender</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ case.accused_person.gender }}</span>
+                                        </li>
+                                        {% endif %}
+                                        {% if case.accused_person.national_id %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">ID Number</h6>
+                                            <span class="text-primary"><i class="fa-solid fa-link"></i> {{ case.accused_person.national_id }}</span>
+                                        </li>
+                                        {% endif %}
+                                        {% if case.accused_person.arrest_status %}
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">Arrest Status</h6>
                                             <span class="text-primary"><i class="fa-solid fa-link"></i>
-                                                {% if case.arrest_status == 'Free' %}
-                                                <span class="badge badge-success">{{ case.arrest_status }}</span>
-                                                {% elif case.arrest_status == 'Convicted' %}
-                                                <span class="badge badge-danger">{{ case.arrest_status }}</span>
-                                                {% elif case.arrest_status == 'In Custody' %}
-                                                <span class="badge badge-warning">{{ case.arrest_status }}</span>
-                                                {% elif case.arrest_status == 'Out On Bond' %}
-                                                <span class="badge badge-secondary">{{ case.arrest_status }}</span>
+                                                {% if case.accused_person.arrest_status == 'Free' %}
+                                                <span class="badge badge-success">{{ case.accused_person.arrest_status }}</span>
+                                                {% elif case.accused_person.arrest_status == 'Convicted' %}
+                                                <span class="badge badge-danger">{{ case.accused_person.arrest_status }}</span>
+                                                {% elif case.accused_person.arrest_status == 'In Custody' %}
+                                                <span class="badge badge-warning">{{ case.accused_person.arrest_status }}</span>
+                                                {% elif case.accused_person.arrest_status == 'Out On Bond' %}
+                                                <span class="badge badge-secondary">{{ case.accused_person.arrest_status }}</span>
                                                 {% else %}
-                                                <span class="badge badge-info">{{ case.arrest_status }}</span>
+                                                <span class="badge badge-info">{{ case.accused_person.arrest_status }}</span>
                                                 {% endif %}
                                             </span>
                                         </li>
@@ -500,10 +759,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">First Name</h6>
+                                                <h6 class="mb-0">Case Number</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ case.first_name }}
+                                                {{ case.case_number }}
                                             </div>
                                         </div>
                                         <hr>
@@ -512,26 +771,26 @@
                                                 <h6 class="mb-0">Cause of Arrest</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ case.middle_name }}
+                                                {{ case.cause_of_arrest }}
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">Last Name</h6>
+                                                <h6 class="mb-0">Crime Category</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {{ case.last_name }}
+                                                {{ case.crime_category }}
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">ID Number</h6>
+                                                <h6 class="mb-0">Location Arrested</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.national_id %}
-                                                {{ case.national_id }}
+                                                {% if case.arrest_location %}
+                                                {{ case.arrest_location }}
                                                 {% else %}
                                                 Not Selected
                                                 {% endif %}
@@ -540,11 +799,11 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">Date Of Birth</h6>
+                                                <h6 class="mb-0">Police Station</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.date_of_birth %}
-                                                    {{ case.date_of_birth }}
+                                                {% if case.police_station %}
+                                                    {{ case.police_station }}
                                                 {% else %}
                                                     Not Selected
                                                 {% endif %}
@@ -553,11 +812,50 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">Gender</h6>
+                                                <h6 class="mb-0">County</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.gender %}
-                                                    {{ case.gender }}
+                                                {% if case.county %}
+                                                    {{ case.county }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Case Started On</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if case.case_started_on %}
+                                                    {{ case.case_started_on }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Case Concluded On</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if case.case_concluded_on %}
+                                                    {{ case.case_concluded_on }}
+                                                {% else %}
+                                                    Not Selected
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Case Status</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if case.case_status %}
+                                                    {{ case.case_status }}
                                                 {% else %}
                                                     Not Selected
                                                 {% endif %}
@@ -583,17 +881,17 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Delete Arrested Person Record</h5>
+            <h5 class="modal-title" id="exampleModalLabel{{ case.id }}">Delete Case Record</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body">
-            Are you sure you want to delete {{ case.first_name }} {{ case.last_name }}'s record? <span class="text-danger">( This can't be undone )</span>
+            Are you sure you want to delete {{ case.accused_person.first_name }} {{ case.accused_person.last_name }}'s case record? <span class="text-danger">( This can't be undone )</span>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <a href="/cases/person/{{ case.id }}/delete">
+            <a href="/case/{{ case.id }}/delete">
                 <button type="submit" class="btn btn-danger">Delete Record</button>
             </a>
             </div>
