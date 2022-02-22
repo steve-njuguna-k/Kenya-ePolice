@@ -337,7 +337,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.date_of_birth|date:'SHORT_DATE_FORMAT' }}" required>
+                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.date_of_birth|date:"Y-m-d" }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -397,7 +397,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.arrested_on|date:"SHORT_DATE_FORMAT" }}" required>
+                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.arrested_on|date:"Y-m-d" }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
                                         <div class="valid-feedback">
                                             Looks good!

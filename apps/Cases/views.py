@@ -8,7 +8,6 @@ from apps.Cases.models import Case
 from apps.Users.models import Profile
 
 # Create your views here.
-# Create your views here.
 @login_required(login_url='Login')
 def OfficerCases(request):
     form = AddCaseForm()
@@ -20,12 +19,8 @@ def AddCase(request):
     form = AddCaseForm()
     if request.method == 'POST':
         form = AddCaseForm(request.POST)
-        # print('First: ', form.data['accused_person'])
-        # accused_id = form.data['accused_person']
 
         if form.is_valid():
-            print('Function Called')
-            # print('Second: ', form.cleaned_data)
             case_number = form.cleaned_data['case_number']
             accused_person = form.cleaned_data['accused_person']
             cause_of_arrest = form.cleaned_data['cause_of_arrest']
@@ -37,8 +32,7 @@ def AddCase(request):
             case_concluded_on = form.cleaned_data['case_concluded_on']
             case_status = form.cleaned_data['case_status']
 
-            accused_person_obj = AccusedPerson.objects.get(pk=int(accused_id))
-            print('New: ', accused_person_obj)
+            accused_person_obj = AccusedPerson.objects.get(pk=int(accused_person))
             police_station_member = Profile.objects.filter(user = profile, police_station = police_station)
 
             if not police_station_member:
@@ -48,8 +42,8 @@ def AddCase(request):
             else:
                 accused_person_obj = AccusedPerson.objects.get(pk=int(accused_person))
                 print(accused_person_obj)
-                # new_case = Case(case_number = case_number, accused_person = accused_person_obj, cause_of_arrest = cause_of_arrest, crime_category = crime_category, arrest_location = arrest_location, county=county, case_started_on=case_started_on, case_concluded_on=case_concluded_on, case_status=case_status, created_by=profile)
-                # new_case.save()
+                new_case = Case(case_number = case_number, accused_person = accused_person_obj, cause_of_arrest = cause_of_arrest, crime_category = crime_category, arrest_location = arrest_location, county=county, case_started_on=case_started_on, case_concluded_on=case_concluded_on, case_status=case_status, created_by=profile)
+                new_case.save()
                 messages.success(request, '✅ Case Record Successfully Created!')
                 return redirect('OfficerCases')
         else:

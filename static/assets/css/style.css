@@ -12002,9 +12002,9 @@ input:-webkit-autofill:active {
 
 /* Footer */
 .footer {
-  background: #f9fafb;
+  background: #ffffff;
   padding: 15px 25px 15px;
-  border-top: 1px solid #e8ebf1;
+  border-top: 1px solid #ffffff;
   transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -webkit-transition: all 0.2s ease;

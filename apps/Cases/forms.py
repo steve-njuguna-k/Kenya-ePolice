@@ -95,7 +95,7 @@ CASE_STATUS = [
     ('Complete', ('Complete')),
 ]
 
-class AddCaseForm(forms.ModelForm):
+class AddCaseForm(forms.Form):
     case_number = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'case_number', 'class': 'form-control mb-4', 'name': 'case_number', 'placeholder': 'Case Number'}))
     accused_person = forms.ChoiceField(required=True, widget=forms.Select(attrs={'id': 'accused_person', 'class': 'form-control mb-4', 'name': 'accused_person', 'placeholder': 'Accused Person'}))
     cause_of_arrest = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'cause_of_arrest', 'class': 'form-control mb-4', 'name': 'cause_of_arrest', 'placeholder': 'Cause of Arrest'}))
@@ -109,10 +109,15 @@ class AddCaseForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AddCaseForm, self).__init__(*args, **kwargs)
-        # self.fields['accused_person'].choices = [(e.pk, f"{e.first_name}" + ' ' + f"{e.middle_name}" + ' ' + f"{e.last_name}") for e in AccusedPerson.objects.all()]
-        self.fields['accused_person'].choices = [(e.pk, e.first_name) for e in AccusedPerson.objects.all()]
-        # self.fields['accused_person'].choices = [(e.pk, e.first_name) for e in AccusedPerson.objects.all()]
-
+        self.fields['accused_person'].choices = [(e.pk, f"{e.first_name}" + ' ' + f"{e.middle_name}" + ' ' + f"{e.last_name}") for e in AccusedPerson.objects.all()]
+        
     class Meta:
         model = Case
         fields = ['case_number', 'accused_person', 'cause_of_arrest', 'crime_category', 'arrest_location', 'police_station', 'county', 'case_started_on', 'case_concluded_on', 'case_status']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        print('Clean', cleaned_data)
+        # AccusedPerson = self.cleaned_data['accused_person']
+        # print('Person ID:', AccusedPerson)
+        return cleaned_data
