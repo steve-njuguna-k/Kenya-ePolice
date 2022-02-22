@@ -14,7 +14,7 @@ ARREST_STATUS = [
     ('Out On Cash Bail', ('Out On Cash Bail')),
 ]
 
-class ArrestedPersonForm(forms.ModelForm):
+class UpdateArrestedPersonForm(forms.ModelForm):
     arrest_number = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'Arrest Number', 'readonly':'readonly'}))
     first_name = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'First Name', 'readonly':'readonly'}))
     middle_name = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'Middle Name', 'readonly':'readonly'}))
@@ -22,7 +22,7 @@ class ArrestedPersonForm(forms.ModelForm):
     date_of_birth = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'Date Of Birth', 'readonly':'readonly'}))
     gender = forms.ChoiceField(choices=GENDER, required=True, widget=forms.Select(attrs={'class': 'form-control mb-4', 'readonly':'readonly'}))
     national_id = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control mb-4', 'placeholder':'National ID', 'readonly':'readonly'}))
-    profile_picture = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'dropify', 'data-height':420, 'data-max-file-size':"1M"}))
+    profile_picture = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control mb-4'}))
     arrest_status = forms.ChoiceField(choices=ARREST_STATUS, required=True, widget=forms.Select(attrs={'class': 'form-control mb-4'}))
 
     class Meta:

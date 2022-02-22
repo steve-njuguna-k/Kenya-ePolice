@@ -53,8 +53,8 @@
                                             <th class="pt-0">First Name</th>
                                             <th class="pt-0">Middle Name</th>
                                             <th class="pt-0">Last Name</th>
-                                            <th class="pt-0">ID No.</th>
                                             <th class="pt-0">Gender</th>
+                                            <th class="pt-0">ID No.</th>
                                             <th class="pt-0">Arrested On</th>
                                             <th class="pt-0">Arrest Status</th>
                                             <th class="pt-0">Action</th>
@@ -87,7 +87,7 @@
                                                         <a href="{% url 'ViewArrestedPersonDetails' person.id %}" data-toggle="modal" data-target="#exampleModal2{{ person.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
                                                         </a>
-                                                        <a href="#">
+                                                        <a href="{% url 'EditArrestedPerson' person.id %}" data-toggle="modal" data-target="#exampleModal3{{ person.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
                                                         </a>
                                                         <a href="#" data-toggle="modal" data-target="#exampleModal4{{ person.id }}">
@@ -107,7 +107,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Add Modal -->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
@@ -119,7 +119,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'AddArrestedPerson' %}" enctype="multipart/form-data" class="needs-validation" novalidate>
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
@@ -269,7 +269,190 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Edit Modal -->
+    {% for person in accused %}
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="exampleModal3{{ person.id }}" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ person.id }}">Edit Arrested Person Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <form method="POST" action="{% url 'EditArrestedPerson' person.id %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="{{ person.arrest_number }}" readonly>
+                                        <label for="floatingInputGrid" style="color: #000000;">Arrest Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Arrest Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.first_name }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">First Name</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            First Name Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.middle_name }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Middle Name Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.last_name }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Last Name Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.date_of_birth|date:"SHORT_DATE_FORMAT" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Date Of Birth Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" value="{{ person.gender }}" required>
+                                            <option value="{{ person.gender }}">
+                                                {% if person.gender.selected %} selected {% endif %}
+                                                {{ person.gender }}
+                                            </option>
+                                            {% if person.gender != 'Male' %}
+                                            <option value="Male">Male</option>
+                                            {% else %}
+                                            <option value="Female">Female</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingSelect" style="color: #000000;">Gender</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Gender Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.national_id }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            ID Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.profile_picture }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Picture</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Picture Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.arrested_on|date:"SHORT_DATE_FORMAT" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Arrested On Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" value="" required>
+                                            <option value="{{ person.arrest_status }}">
+                                                {% if person.gender.selected %} selected {% endif %}
+                                                {{ person.arrest_status }}
+                                            </option>
+                                            {% if person.arrest_status != 'Free' %}
+                                            <option value="Free">Free</option>
+                                            {% endif %}
+                                            {% if person.arrest_status != 'Convicted' %}
+                                            <option value="Convicted">Convicted</option>
+                                            {% endif %}
+                                            {% if person.arrest_status != 'In Custody' %}
+                                            <option value="In Custody">In Custody</option>
+                                            {% endif %}
+                                            {% if person.arrest_status != 'Out On Bond' %}
+                                            <option value="Out On Bond">Out On Bond</option>
+                                            {% endif %}
+                                            {% if person.arrest_status != 'Out On Cash Bail' %}
+                                            <option value="Out On Cash Bail">Out On Cash Bail</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingSelect" style="color: #000000;">Arrest Status</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Arrest Status Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Record</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- View Modal -->
     {% for person in accused %}
         <div class="modal fade" id="exampleModal2{{ person.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ person.id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -406,7 +589,7 @@
         </div>
     {% endfor %}
 
-    <!-- Modal -->
+    <!-- Delete Modal -->
     {% for person in accused %}
     <div class="modal fade" id="exampleModal4{{ person.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ person.id }}" aria-hidden="true">
         <div class="modal-dialog" role="document">
