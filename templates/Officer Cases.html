@@ -571,7 +571,7 @@
                                                 <h6 class="mb-0">Police Station</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.accused_person.police_station %}
+                                                {% if case.created_by.police_station %}
                                                     {{ case.created_by.police_station }}
                                                 {% else %}
                                                     Not Selected
@@ -584,7 +584,7 @@
                                                 <h6 class="mb-0">County</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.accused_person.county %}
+                                                {% if case.created_by.county %}
                                                     {{ case.created_by.county }}
                                                 {% else %}
                                                     Not Selected

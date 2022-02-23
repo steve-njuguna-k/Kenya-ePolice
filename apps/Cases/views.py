@@ -46,37 +46,42 @@ def AddCase(request):
 
 def EditCase(request, id):
     case = Case.objects.get(id=id)
-    profile = request.user
 
     if request.method == 'POST':
-        context = {'has_error': False}
-        case_number = request.POST['case_number']
-        accused_person = request.POST['accused_person']
-        cause_of_arrest = request.POST['cause_of_arrest']
-        crime_category = request.POST['crime_category']
-        arrest_location = request.POST['arrest_location']
-        case_started_on = request.POST['case_started_on']
-        case_concluded_on = request.POST['case_concluded_on']
-        case_status = request.POST['case_status']
+        form = EditCaseForm(request.POST)
 
-        case.case_number = case_number
-        case.accused_person = AccusedPerson.objects.get(pk=int(accused_person))
-        case.cause_of_arrest = cause_of_arrest
-        case.crime_category = crime_category
-        case.arrest_location = arrest_location
-        case.case_started_on = case_started_on
-        case.case_concluded_on = case_concluded_on
-        case.case_status = case_status
-        case.created_by = request.user.profile
+        if form.is_valid():
+            context = {'has_error': False}
+            case_number = form.cleaned_data['case_number']
+            accused_person = form.cleaned_data['accused_person']
+            cause_of_arrest = form.cleaned_data['cause_of_arrest']
+            crime_category = form.cleaned_data['crime_category']
+            arrest_location = form.cleaned_data['arrest_location']
+            case_started_on = form.cleaned_data['case_started_on']
+            case_concluded_on = form.cleaned_data['case_concluded_on']
+            case_status = form.cleaned_data['case_status']
 
-        if not context['has_error']:
-            case.save()
-            messages.success(request, '✅ Case Record Successfully Updated!')
-            return redirect('OfficerCases')
-            
+            case.case_number = case_number
+            case.accused_person = AccusedPerson.objects.get(pk=int(accused_person))
+            case.cause_of_arrest = cause_of_arrest
+            case.crime_category = crime_category
+            case.arrest_location = arrest_location
+            case.case_started_on = case_started_on
+            case.case_concluded_on = case_concluded_on
+            case.case_status = case_status
+            case.created_by = request.user.profile
+
+            if not context['has_error']:
+                case.save()
+                messages.success(request, '✅ Case Record Successfully Updated!')
+                return redirect('OfficerCases')
+                
+            else:
+                messages.error(request, '⚠️ Case Record Was Not Updated!')
+                return redirect('OfficerCases')
+
         else:
-            messages.error(request, '⚠️ Case Record Was Not Updated!')
-            return redirect('OfficerCases')
+            form = EditCaseForm(instance=request.user.profile)
 
     return redirect('OfficerCases')
 

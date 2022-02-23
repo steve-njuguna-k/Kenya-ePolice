@@ -140,6 +140,5 @@ class EditCaseForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(EditCaseForm, self).clean()
-        if not cleaned_data['case_concluded_on']:
-            cleaned_data['case_concluded_on'] = None
-        return cleaned_data
+        if cleaned_data['case_concluded_on']:
+            return cleaned_data
