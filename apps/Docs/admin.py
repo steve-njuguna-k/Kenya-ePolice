@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.Cells.models import Cell
+from apps.Docs.models import Docs
 
 # Register your models here.
-admin.site.register(Cell)
+admin.site.register(Docs)

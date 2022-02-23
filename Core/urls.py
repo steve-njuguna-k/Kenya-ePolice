@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('apps.Accused.urls')),
     path('', include('apps.Cases.urls')),
     path('', include('apps.Cells.urls')),
+    path('', include('apps.Docs.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
