@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from apps.Accused.models import AccusedPerson
+from apps.Users.models import Profile
 
 STATIONS = [
     ("Central Police Station", "Central Police Station"),
@@ -102,12 +102,10 @@ class Case(models.Model):
     cause_of_arrest = models.TextField(max_length=254, verbose_name='Cause Of Arrest')
     crime_category = models.CharField(choices=CRIME, max_length=50, verbose_name='Crime Category')
     arrest_location = models.CharField(max_length=50, verbose_name='Arrest Location')
-    police_station = models.CharField(choices=STATIONS, max_length=150, verbose_name='Police Station', null=True, blank=True)
-    county = models.CharField(choices=COUNTIES, max_length=100, verbose_name='County')
     case_started_on = models.DateField(verbose_name='Case Started On')
-    case_concluded_on = models.DateField(verbose_name='Case Concluded On')
+    case_concluded_on = models.DateField(verbose_name='Case Concluded On', null=True, blank=True)
     case_status = models.CharField(choices=CASE_STATUS, max_length=50, verbose_name='Case Status')
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Police Officer')
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Police Officer')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 

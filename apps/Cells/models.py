@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from apps.Accused.models import AccusedPerson
+from apps.Users.models import Profile
 
 CELL_STATUS = [
     ('Occupied', ('Occupied')),
@@ -13,8 +13,8 @@ class Cell(models.Model):
     accused_person = models.ForeignKey(AccusedPerson, on_delete=models.CASCADE, verbose_name='Accused Person')
     cell_status = models.CharField(choices=CELL_STATUS, max_length=50, verbose_name='Cell Status')
     occupied_on = models.DateField(verbose_name='Occupied On')
-    vaccated_on = models.DateField(verbose_name='Vaccated On')
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Police Officer')
+    vaccated_on = models.DateField(verbose_name='Vaccated On', null=True, blank=True)
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Police Officer')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
 

@@ -124,7 +124,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="arrest_number" id="arrest_number" placeholder="name@example.com" value="" required>
+                                        {{ form.arrest_number }}
                                         <label for="floatingInputGrid" style="color: #000000;">Arrest Number</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="first_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.first_name }}
                                         <label for="floatingInputGrid" style="color: #000000;">First Name</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="middle_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.middle_name }}
                                         <label for="floatingInputGrid" style="color: #000000;">Middle Name</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -160,7 +160,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="last_name" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.last_name }}
                                         <label for="floatingInputGrid" style="color: #000000;">Last Name</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -174,7 +174,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="date_of_birth" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.date_of_birth }}
                                         <label for="floatingInputGrid" style="color: #000000;">Date Of Birth</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -186,11 +186,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example" required>
-                                            <option value="" selected disabled>Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
+                                        {{ form.gender }}
                                         <label for="floatingSelect" style="color: #000000;">Gender</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -202,7 +198,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" name="national_id" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.national_id }}
                                         <label for="floatingInputGrid" style="color: #000000;">National ID Number</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -216,7 +212,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.profile_picture }}
                                         <label for="floatingInputGrid" style="color: #000000;">Picture</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -228,7 +224,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="arrested_on" id="floatingInputGrid" placeholder="name@example.com" value="" required>
+                                        {{ form.arrested_on }}
                                         <label for="floatingInputGrid" style="color: #000000;">Arrested On</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -240,14 +236,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" required>
-                                            <option value="" selected disabled>Arrest Status</option>
-                                            <option value="Free">Free</option>
-                                            <option value="Convicted">Convicted</option>
-                                            <option value="In Custody">In Custody</option>
-                                            <option value="Out On Bond">Out On Bond</option>
-                                            <option value="Out On Cash Bail">Out On Cash Bail</option>
-                                        </select>
+                                        {{ form.arrest_status }}
                                         <label for="floatingSelect" style="color: #000000;">Arrest Status</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -282,7 +271,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="{% url 'EditArrestedPerson' person.id %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'EditArrestedPerson' person.id %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
@@ -385,7 +374,7 @@
                             <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.profile_picture }}" required>
+                                        <input type="file" class="form-control" name="profile_picture" id="floatingInputGrid" placeholder="name@example.com" value="{{ person.profile_picture }}">
                                         <label for="floatingInputGrid" style="color: #000000;">Picture</label>
                                         <div class="valid-feedback">
                                             Looks good!

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from apps.Users.models import Profile
 
 GENDER = [
     ('Male', ('Male')),
@@ -27,7 +27,7 @@ class AccusedPerson(models.Model):
     profile_picture = models.ImageField(upload_to='Accused-Profile-Pics', verbose_name='Accused Person Profile Pics')
     arrest_status = models.CharField(choices=ARREST_STATUS, max_length=50, verbose_name='Arrest Status')
     arrested_on = models.DateField(verbose_name='Arrested On')
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Police Officer')
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Police Officer')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Date Created')
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
     

@@ -15,7 +15,7 @@ def OfficerCells(request):
     return render(request, 'Officer Cells.html', {'cells':cells, 'form':form})
 
 def AddCellInfo(request):
-    profile = request.user
+    profile = request.user.profile
     form = AddCellForm()
     if request.method == 'POST':
         form = AddCellForm(request.POST)
@@ -56,7 +56,7 @@ def EditCellInfo(request, id):
         cell.cell_status = cell_status
         cell.occupied_on = occupied_on
         cell.vaccated_on = vaccated_on
-        cell.created_by = request.user
+        cell.created_by = request.user.profile
 
         if not context['has_error']:
             cell.save()

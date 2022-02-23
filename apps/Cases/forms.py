@@ -101,10 +101,8 @@ class AddCaseForm(forms.Form):
     cause_of_arrest = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'cause_of_arrest', 'class': 'form-control mb-4', 'name': 'cause_of_arrest', 'placeholder': 'Cause of Arrest'}))
     crime_category = forms.ChoiceField(choices=CRIME, required=True, widget=forms.Select(attrs={'id': 'crime_category', 'class': 'form-control mb-4', 'name': 'crime_category', 'placeholder': 'Category'}))
     arrest_location = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'arrest_location', 'class': 'form-control mb-4', 'name': 'arrest_location', 'placeholder': 'Arrest Location'}))
-    police_station = forms.ChoiceField(choices=STATIONS, required=True, widget=forms.Select(attrs={'id': 'police_station', 'class': 'form-control mb-4', 'name': 'police_station', 'placeholder': 'Police Station'}))
-    county = forms.ChoiceField(choices=COUNTIES, required=True, widget=forms.Select(attrs={'id': 'county', 'class': 'form-control mb-4', 'name': 'county', 'placeholder': 'County'}))
     case_started_on = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date', 'id': 'case_started_on', 'class': 'form-control mb-4', 'name': 'case_started_on', 'placeholder': 'Case Started On'}))
-    case_concluded_on = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date', 'id': 'case_concluded_on', 'class': 'form-control mb-4', 'name': 'case_concluded_on', 'placeholder': 'Case Concluded On'}))
+    case_concluded_on = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date', 'id': 'case_concluded_on', 'class': 'form-control mb-4', 'name': 'case_concluded_on', 'placeholder': 'Case Concluded On'}))
     case_status = forms.ChoiceField(choices=CASE_STATUS, required=True, widget=forms.Select(attrs={'type': 'date', 'id': 'case_status', 'class': 'form-control mb-4', 'name': 'case_status', 'placeholder': 'Case Status'}))
 
     def __init__(self, *args, **kwargs):
@@ -115,6 +113,12 @@ class AddCaseForm(forms.Form):
         model = Case
         fields = ['case_number', 'accused_person', 'cause_of_arrest', 'crime_category', 'arrest_location', 'police_station', 'county', 'case_started_on', 'case_concluded_on', 'case_status']
 
+    def clean(self):
+        cleaned_data = super(AddCaseForm, self).clean()
+        if not cleaned_data['case_concluded_on']:
+            cleaned_data['case_concluded_on'] = None
+        return cleaned_data
+
 
 class EditCaseForm(forms.Form):
     case_number = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'case_number', 'class': 'form-control mb-4', 'name': 'case_number', 'placeholder': 'Case Number', 'readonly':'readonly'}))
@@ -122,8 +126,6 @@ class EditCaseForm(forms.Form):
     cause_of_arrest = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'cause_of_arrest', 'class': 'form-control mb-4', 'name': 'cause_of_arrest', 'placeholder': 'Cause of Arrest'}))
     crime_category = forms.ChoiceField(choices=CRIME, required=True, widget=forms.Select(attrs={'id': 'crime_category', 'class': 'form-control mb-4', 'name': 'crime_category', 'placeholder': 'Category'}))
     arrest_location = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'arrest_location', 'class': 'form-control mb-4', 'name': 'arrest_location', 'placeholder': 'Arrest Location'}))
-    police_station = forms.ChoiceField(choices=STATIONS, required=True, widget=forms.Select(attrs={'id': 'police_station', 'class': 'form-control mb-4', 'name': 'police_station', 'placeholder': 'Police Station'}))
-    county = forms.ChoiceField(choices=COUNTIES, required=True, widget=forms.Select(attrs={'id': 'county', 'class': 'form-control mb-4', 'name': 'county', 'placeholder': 'County'}))
     case_started_on = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date', 'id': 'case_started_on', 'class': 'form-control mb-4', 'name': 'case_started_on', 'placeholder': 'Case Started On'}))
     case_concluded_on = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date', 'id': 'case_concluded_on', 'class': 'form-control mb-4', 'name': 'case_concluded_on', 'placeholder': 'Case Concluded On'}))
     case_status = forms.ChoiceField(choices=CASE_STATUS, required=True, widget=forms.Select(attrs={'type': 'date', 'id': 'case_status', 'class': 'form-control mb-4', 'name': 'case_status', 'placeholder': 'Case Status'}))
@@ -134,4 +136,10 @@ class EditCaseForm(forms.Form):
 
     class Meta:
         model = Case
-        fields = ['case_number', 'accused_person', 'cause_of_arrest', 'crime_category', 'arrest_location', 'police_station', 'county', 'case_started_on', 'case_concluded_on', 'case_status']
+        fields = ['case_number', 'accused_person', 'cause_of_arrest', 'crime_category', 'arrest_location', 'case_started_on', 'case_concluded_on', 'case_status']
+
+    def clean(self):
+        cleaned_data = super(EditCaseForm, self).clean()
+        if not cleaned_data['case_concluded_on']:
+            cleaned_data['case_concluded_on'] = None
+        return cleaned_data

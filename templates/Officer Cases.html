@@ -113,7 +113,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="{% url 'AddCase' %}" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'AddCase' %}">
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
@@ -185,32 +185,6 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        {{ form.police_station }}
-                                        <label for="floatingSelect" style="color: #000000;">Police Station</label>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Police Station Is Required!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-floating mb-3">
-                                        {{ form.county }}
-                                        <label for="floatingInputGrid" style="color: #000000;">County</label>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            County Is Required!
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-2">
-                                <div class="col-md">
-                                    <div class="form-floating mb-3">
                                         {{ form.case_started_on }}
                                         <label for="floatingInputGrid" style="color: #000000;">Case Start Date</label>
                                         <div class="valid-feedback">
@@ -270,7 +244,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="auth-form">
-                        <form method="POST" action="{% url 'EditCase' case.id %}" class="needs-validation" novalidate>
+                        <form method="POST" action="{% url 'EditCase' case.id %}">
                             {% csrf_token %}
                             <div class="row g-2">
                                 <div class="col-md">
@@ -413,213 +387,6 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <select class="form-select" name="police_station" id="floatingSelect" aria-label="Floating label select example" value="{{ case.police_station }}" required>
-                                            <option value="{{ case.police_station }}">
-                                                {% if case.police_station.selected %} selected {% endif %}
-                                                {{ case.police_station }}
-                                            </option>
-                                            {% if case.police_station != 'Central Police Station' %}
-                                            <option value="Central Police Station">Central Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Kilimani Police Station' %}
-                                            <option value="Kilimani Police Station">Kilimani Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Embakasi Police Station' %}
-                                            <option value="Embakasi Police Station">Embakasi Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != "Lang'ata Police Station" %}
-                                            <option value="Lang'ata Police Station">Lang'ata Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != "Ong'ata Rongai Police Station" %}
-                                            <option value="Ong'ata Rongai Police Station">Ong'ata Rongai Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Buruburu Police Station' %}
-                                            <option value="Buruburu Police Station">Buruburu Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Kasarani Police Station' %}
-                                            <option value="Kasarani Police Station">Kasarani Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Parklands Police Station' %}
-                                            <option value="Parklands Police Station">Parklands Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Pangani Police Station' %}
-                                            <option value="Pangani Police Station">Pangani Police Station</option>
-                                            {% endif %}
-                                            {% if case.police_station != 'Muthaiga Police Station' %}
-                                            <option value="Muthaiga Police Station">Muthaiga Police Station</option>
-                                            {% endif %}
-                                        </select>
-                                        <label for="floatingSelect" style="color: #000000;">Police Station</label>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            Police Station Is Required!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" name="county" id="floatingSelect" aria-label="Floating label select example" value="{{ case.county }}" required>
-                                            <option value="{{ case.county }}">
-                                                {% if case.county.selected %} selected {% endif %}
-                                                {{ case.county }}
-                                            </option>
-                                            {% if case.county != 'Baringo' %}
-                                            <option value='Baringo'>Baringo</option>
-                                            {% endif %}
-                                            {% if case.county != 'Bomet' %}
-                                            <option value='Bomet'>Bomet</option>
-                                            {% endif %}
-                                            {% if case.county != 'Bungoma' %}
-                                            <option value='Bungoma'>Bungoma</option>
-                                            {% endif %}
-                                            {% if case.county != 'Busia' %}
-                                            <option value='Busia'>Busia</option>
-                                            {% endif %}
-                                            {% if case.county != 'Elgeyo-Marakwet' %}
-                                            <option value='Elgeyo-Marakwet'>Elgeyo-Marakwet</option>
-                                            {% endif %}
-                                            {% if case.county != 'Embu' %}
-                                            <option value='Embu'>Embu</option>
-                                            {% endif %}
-                                            {% if case.county != 'Garissa' %}
-                                            <option value='Garissa'>Garissa</option>
-                                            {% endif %}
-                                            {% if case.county != 'Homa Bay' %}
-                                            <option value='Homa Bay'>Homa Bay</option>
-                                            {% endif %}
-                                            {% if case.county != 'Isiolo' %}
-                                            <option value='Isiolo'>Isiolo</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kajiado' %}
-                                            <option value='Kajiado'>Kajiado</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kakamega' %}
-                                            <option value='Kakamega'>Kakamega</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kericho' %}
-                                            <option value='Kericho'>Kericho</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kiambu' %}
-                                            <option value='Kiambu'>Kiambu</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kilifi' %}
-                                            <option value='Kilifi'>Kilifi</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kirinyaga' %}
-                                            <option value='Kirinyaga'>Kirinyaga</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kisii' %}
-                                            <option value='Kisii'>Kisii</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kisumu' %}
-                                            <option value='Kisumu'>Kisumu</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kitui' %}
-                                            <option value='Kitui'>Kitui</option>
-                                            {% endif %}
-                                            {% if case.county != 'Kwale' %}
-                                            <option value='Kwale'>Kwale</option>
-                                            {% endif %}
-                                            {% if case.county != 'Laikipia' %}
-                                            <option value='Laikipia'>Laikipia</option>
-                                            {% endif %}
-                                            {% if case.county != 'Lamu' %}
-                                            <option value='Lamu'>Lamu</option>
-                                            {% endif %}
-                                            {% if case.county != 'Machakos' %}
-                                            <option value='Machakos'>Machakos</option>
-                                            {% endif %}
-                                            {% if case.county != 'Makueni' %}
-                                            <option value='Makueni'>Makueni</option>
-                                            {% endif %}
-                                            {% if case.county != 'Mandera' %}
-                                            <option value='Mandera'>Mandera</option>
-                                            {% endif %}
-                                            {% if case.county != 'Marsabit' %}
-                                            <option value='Marsabit'>Marsabit</option>
-                                            {% endif %}
-                                            {% if case.county != 'Meru' %}
-                                            <option value='Meru'>Meru</option>
-                                            {% endif %}
-                                            {% if case.county != 'Migori' %}
-                                            <option value='Migori'>Migori</option>
-                                            {% endif %}
-                                            {% if case.county != 'Mombasa' %}
-                                            <option value='Mombasa'>Mombasa</option>
-                                            {% endif %}
-                                            {% if case.county != "Murang'a" %}
-                                            <option value="Murang'a">Murang'a</option>
-                                            {% endif %}
-                                            {% if case.county != 'Nairobi City' %}
-                                            <option value='Nairobi City'>Nairobi City</option>
-                                            {% endif %}
-                                            {% if case.county != 'Nakuru' %}
-                                            <option value='Nakuru'>Nakuru</option>
-                                            {% endif %}
-                                            {% if case.county != 'Nandi' %}
-                                            <option value='Nandi'>Nandi</option>
-                                            {% endif %}
-                                            {% if case.county != 'Narok' %}
-                                            <option value='Narok'>Narok</option>
-                                            {% endif %}
-                                            {% if case.county != 'Nyamira' %}
-                                            <option value='Nyamira'>Nyamira</option>
-                                            {% endif %}
-                                            {% if case.county != 'Nyandarua' %}
-                                            <option value='Nyandarua'>Nyandarua</option>
-                                            {% endif %}
-                                            {% if case.county != 'Nyeri' %}
-                                            <option value='Nyeri'>Nyeri</option>
-                                            {% endif %}
-                                            {% if case.county != 'Samburu' %}
-                                            <option value='Samburu'>Samburu</option>
-                                            {% endif %}
-                                            {% if case.county != 'Siaya' %}
-                                            <option value='Siaya'>Siaya</option>
-                                            {% endif %}
-                                            {% if case.county != 'Taita-Taveta' %}
-                                            <option value='Taita-Taveta'>Taita-Taveta</option>
-                                            {% endif %}
-                                            {% if case.county != 'Tana River' %}
-                                            <option value='Tana River'>Tana River</option>
-                                            {% endif %}
-                                            {% if case.county != 'Tharaka-Nithi' %}
-                                            <option value='Tharaka-Nithi'>Tharaka-Nithi</option>
-                                            {% endif %}
-                                            {% if case.county != 'Trans Nzoia' %}
-                                            <option value='Trans Nzoia'>Trans Nzoia</option>
-                                            {% endif %}
-                                            {% if case.county != 'Turkana' %}
-                                            <option value='Turkana'>Turkana</option>
-                                            {% endif %}
-                                            {% if case.county != 'Uasin Gishu' %}
-                                            <option value='Uasin Gishu'>Uasin Gishu</option>
-                                            {% endif %}
-                                            {% if case.county != 'Vihiga' %}
-                                            <option value='Vihiga'>Vihiga</option>
-                                            {% endif %}
-                                            {% if case.county != 'Wajir' %}
-                                            <option value='Wajir'>Wajir</option>
-                                            {% endif %}
-                                            {% if case.county != 'West Pokot' %}
-                                            <option value='West Pokot'>West Pokot</option>
-                                            {% endif %}
-                                        </select>
-                                        <label for="floatingInputGrid" style="color: #000000;">County</label>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            County Is Required!
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-2">
-                                <div class="col-md">
-                                    <div class="form-floating mb-3">
                                         <input type="date" class="form-control" name="case_started_on" id="case_started_on" placeholder="name@example.com" value="{{ case.case_started_on|date:"Y-m-d" }}" required>
                                         <label for="floatingInputGrid" style="color: #000000;">Case Start Date</label>
                                         <div class="valid-feedback">
@@ -632,7 +399,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" name="case_concluded_on" id="case_concluded_on" placeholder="name@example.com" value="{{ case.case_concluded_on|date:"Y-m-d" }}" required>
+                                        <input type="date" class="form-control" name="case_concluded_on" id="case_concluded_on" placeholder="name@example.com" value="{{ case.case_concluded_on|date:"Y-m-d" }}">
                                         <label for="floatingInputGrid" style="color: #000000;">Case Concluded On</label>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -642,6 +409,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row g-2">
                                 <div class="col-md">
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="case_status" id="floatingSelect" aria-label="Floating label select example" value="{{ case.case_status }}" required>
@@ -802,8 +571,8 @@
                                                 <h6 class="mb-0">Police Station</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.police_station %}
-                                                    {{ case.police_station }}
+                                                {% if case.accused_person.police_station %}
+                                                    {{ case.created_by.police_station }}
                                                 {% else %}
                                                     Not Selected
                                                 {% endif %}
@@ -815,8 +584,8 @@
                                                 <h6 class="mb-0">County</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                {% if case.county %}
-                                                    {{ case.county }}
+                                                {% if case.accused_person.county %}
+                                                    {{ case.created_by.county }}
                                                 {% else %}
                                                     Not Selected
                                                 {% endif %}
