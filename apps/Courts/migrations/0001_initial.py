@@ -15,20 +15,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cell',
+            name='Court',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cell_number', models.CharField(max_length=255, verbose_name='Cell Number.')),
-                ('cell_status', models.CharField(choices=[('Occupied', 'Occupied'), ('Empty', 'Empty')], max_length=50, verbose_name='Cell Status')),
-                ('occupied_on', models.DateField(verbose_name='Occupied On')),
-                ('vaccated_on', models.DateField(blank=True, null=True, verbose_name='Vaccated On')),
+                ('court_number', models.CharField(max_length=255, verbose_name='Court Number.')),
+                ('court', models.CharField(choices=[('City Court', 'City Court'), ('Milimani Commercial', 'Milimani Commercial'), ('Makadara Law Courts', 'Makadara Law Courts'), ('Kibera Law Courts', 'Kibera Law Courts'), ('Milimani Law Courts', 'Milimani Law Courts'), ('Kadhis’ Court – Upperhill', 'Kadhis’ Court – Upperhill'), ('JKIA Law Courts', 'JKIA Law Courts')], max_length=255, verbose_name='Court')),
+                ('court_verdict', models.CharField(choices=[('Guilty', 'Guilty'), ('Not Guilty', 'Not Guilty'), ('Undetermined', 'Undetermined')], max_length=50, verbose_name='Court Status')),
+                ('scheduled_on', models.DateField(verbose_name='Scheduled On')),
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='Date Created')),
                 ('date_updated', models.DateTimeField(auto_now=True, verbose_name='Date Updated')),
                 ('accused_person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Accused.accusedperson', verbose_name='Accused Person')),
                 ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Users.profile', verbose_name='Police Officer')),
             ],
             options={
-                'verbose_name_plural': 'Cells',
+                'verbose_name_plural': 'Court',
             },
         ),
     ]

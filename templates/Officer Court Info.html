@@ -1,0 +1,493 @@
+{% extends "Dashboard Base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="main-wrapper">
+
+        {% include 'Navbar.html' %}
+
+        <div class="page-wrapper">
+
+            <div class="page-content">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+                    <div>
+                        <h4 class="page-title text-primary"><b>All Court Information</b></h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'OfficerDashboard' %}" name = 'Dashboard'>Home</a></li>
+                            <li class="breadcrumb-item active">All Court Information</li>
+                        </ol>
+                        <br>
+                        <h5>Here is the list of all the court info.</h5>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap text-nowrap">
+                        <div class="d-flex align-items-center flex-wrap text-nowrap">
+                            <button class="btn btn-primary btn-icon-text mb-2 mb-md-0" type="button" data-toggle="modal" data-target="#staticBackdrop" id="ct-create">
+                                <i class="btn-icon-prepend" data-feather="plus"></i>
+                                New Court Record
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <center>
+                        {% if messages %}
+                            {% for message in messages %} 
+                            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %} 
+                        {% endif %}
+                    </center>
+					<div class="col-md-12 grid-margin stretch-card">
+						<div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                            <th class="pt-0">#</th>
+                                            <th class="pt-0">First Name</th>
+                                            <th class="pt-0">Middle Name</th>
+                                            <th class="pt-0">Last Name</th>
+                                            <th class="pt-0">Court of Law</th>
+                                            <th class="pt-0">Scheduled On</th>
+                                            <th class="pt-0">Verdict</th>
+                                            <th class="pt-0">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for court in courts %}
+                                                <tr>
+                                                    <td>{{ court.court_number }}</td>
+                                                    <td>{{ court.accused_person.first_name }}</td>
+                                                    <td>{{ court.accused_person.middle_name }}</td>
+                                                    <td>{{ court.accused_person.last_name }}</td>
+                                                    <td>{{ court.court }}</td>
+                                                    <td>{{ court.scheduled_on }}</td>
+                                                    <td>
+                                                        {% if court.court_verdict == 'Guilty' %}
+                                                        <span class="badge badge-danger">{{ court.court_verdict }}</span>
+                                                        {% elif court.court_verdict == 'Undetermined' %}
+                                                        <span class="badge badge-secondary">{{ court.court_verdict }}</span>
+                                                        {% elif court.court_verdict == 'Not Guilty' %}
+                                                        <span class="badge badge-success">{{ court.court_verdict }}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'ViewCellDetails' court.id %}" data-toggle="modal" data-target="#exampleModal2{{ court.id }}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
+                                                        </a>
+                                                        <a href="{% url 'EditCellInfo' court.id %}" data-toggle="modal" data-target="#exampleModal3{{ court.id }}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
+                                                        </a>
+                                                        <a href="#" data-toggle="modal" data-target="#exampleModal4{{ court.id }}">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash icon-sm mr-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> <span class=""></span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> 
+                          </div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Court Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <form method="POST" action="{% url 'AddCourtInfo' %}" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.court_number }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Court Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Court Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select name="accused_person" class="form-control mb-4" placeholder="Select Accused Person">
+                                            <option value="" selected disabled>Select Accused Person</option>
+                                            {% for pk, first_name in form.fields.accused_person.choices %}
+                                            <option value="{{ pk }}"> {{ first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Accused Person</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Accused Person Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.court }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Court</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Court Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.scheduled_on }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Court Schedule</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Court Schedule Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        {{ form.court_verdict }}
+                                        <label for="floatingInputGrid" style="color: #000000;">Court Verdict</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Court Verdict Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Add Court Info Record</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    {% for court in courts %}
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="exampleModal3{{ court.id }}" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ court.id }}">Edit Cell Information Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-form">
+                        <form method="POST" action="{% url 'EditCourtInfo' court.id %}" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="court_number" id="court_number" placeholder="name@example.com" value="{{ court.court_number }}" readonly>
+                                        <label for="floatingInputGrid" style="color: #000000;">Court Number</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Cell Number Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="accused_person" id="floatingSelect" aria-label="Floating label select example" value="{{ court.accused_person }}" required>
+                                            <option value="{{ court.accused_person }}" disabled>
+                                                {% if court.accused_person.selected %} selected {% endif %}
+                                                {{ court.accused_person }}
+                                            </option>
+                                            {% for pk, first_name in form.fields.accused_person.choices %}
+                                            <option value="{{ pk }}"> {{ first_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Accused Person</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Accused Person Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>               
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="court" id="floatingSelect" aria-label="Floating label select example" value="{{ court.court }}" required>
+                                            <option value="{{ court.court }}">
+                                                {% if court.court.selected %} selected {% endif %}
+                                                {{ court.court }}
+                                            </option>
+                                            {% if court.court != 'City Court' %}
+                                            <option value="City Court">City Court</option>
+                                            {% endif %}
+                                            {% if court.court != 'Milimani Commercial' %}
+                                            <option value="Milimani Commercial">Milimani Commercial</option>
+                                            {% endif %}
+                                            {% if court.court != 'Makadara Law Courts' %}
+                                            <option value="Makadara Law Courts">Makadara Law Courts</option>
+                                            {% endif %}
+                                            {% if court.court != 'Kibera Law Courts' %}
+                                            <option value="Kibera Law Courts">Kibera Law Courts</option>
+                                            {% endif %}
+                                            {% if court.court != 'Milimani Law Courts' %}
+                                            <option value="Milimani Law Courts">Milimani Law Courts</option>
+                                            {% endif %}
+                                            {% if court.court != "Kadhis’ Court – Upperhill" %}
+                                            <option value="Kadhis’ Court – Upperhill">Kadhis’ Court – Upperhill</option>
+                                            {% endif %}
+                                            {% if court.court != 'JKIA Law Courts' %}
+                                            <option value="JKIA Law Courts">JKIA Law Courts</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingInputGrid" style="color: #000000;">Court of Law</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Court of Law Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" name="scheduled_on" id="scheduled_on" placeholder="name@example.com" value="{{ court.scheduled_on|date:"Y-m-d" }}" required>
+                                        <label for="floatingInputGrid" style="color: #000000;">Date Scheduled</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Date Scheduled Date Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="court_verdict" id="floatingSelect" aria-label="Floating label select example" value="{{ court.court_verdict }}" required>
+                                            <option value="{{ court.court_verdict }}">
+                                                {% if court.court_verdict.selected %} selected {% endif %}
+                                                {{ court.court_verdict }}
+                                            </option>
+                                            {% if court.court_verdict != 'Undetermined' %}
+                                            <option value="Occupied">Undetermined</option>
+                                            {% endif %}
+                                            {% if court.court_verdict != 'Guilty' %}
+                                            <option value="Empty">Guilty</option>
+                                            {% endif %}
+                                            {% if court.court_verdict != 'Not Guilty' %}
+                                            <option value="Empty">Not Guilty</option>
+                                            {% endif %}
+                                        </select>
+                                        <label for="floatingSelect" style="color: #000000;">Court Verdict</label>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Court Verdict Is Required!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- View Modal -->
+    {% for court in courts %}
+        <div class="modal fade" id="exampleModal2{{ court.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ court.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel{{ court.id }}">Cell Information Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="main-body">
+                        <div class="row gutters-sm">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            {% if court.accused_person.profile_picture %}
+                                                <img src="{{ court.accused_person.profile_picture.url }}" alt="Admin" class="rounded-circle" width="160">
+                                            {% else %}
+                                                <img class="rounded-circle" src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png" alt="" height="160" width="160">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Full Names</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ court.accused_person.first_name }} {{ court.accused_person.middle_name }} {{ court.accused_person.last_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Date of Birth</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ court.accused_person.date_of_birth }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Gender</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ court.accused_person.gender }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">ID Number</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ court.accused_person.national_id }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Arrest Status</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if court.accused_person.arrest_status == 'Free' %}
+                                                <span class="badge badge-success">{{ court.accused_person.arrest_status }}</span>
+                                                {% elif court.accused_person.arrest_status == 'Convicted' %}
+                                                <span class="badge badge-danger">{{ court.accused_person.arrest_status }}</span>
+                                                {% elif court.accused_person.arrest_status == 'In Custody' %}
+                                                <span class="badge badge-warning">{{ court.accused_person.arrest_status }}</span>
+                                                {% elif court.accused_person.arrest_status == 'Out On Bond' %}
+                                                <span class="badge badge-secondary">{{ court.accused_person.arrest_status }}</span>
+                                                {% else %}
+                                                <span class="badge badge-info">{{ court.accused_person.arrest_status }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Court of Law</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ court.court }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Date Scheduled</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {{ court.scheduled_on }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Court Verdict</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                {% if court.court_verdict == 'Guilty' %}
+                                                <span class="badge badge-danger">{{ court.court_verdict }}</span>
+                                                {% elif court.court_verdict == 'Undetermined' %}
+                                                <span class="badge badge-secondary">{{ court.court_verdict }}</span>
+                                                {% elif court.court_verdict == 'Not Guilty' %}
+                                                <span class="badge badge-success">{{ court.court_verdict }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Delete Modal -->
+    {% for court in courts %}
+    <div class="modal fade" id="exampleModal4{{ court.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ court.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel{{ court.id }}">Delete Court Information Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Are you sure you want to delete {{ court.accused_person.first_name }} {{ court.accused_person.last_name }}'s court record? <span class="text-danger">( This can't be undone )</span>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="/court/info/{{ court.id }}/delete">
+                <button type="submit" class="btn btn-danger">Delete Record</button>
+            </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

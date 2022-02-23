@@ -13436,7 +13436,7 @@ address p {
         .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link .menu-title,
         .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link .link-icon,
         .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link .link-arrow {
-          color: #003398; }
+          color: #000000; }
       .horizontal-menu .bottom-navbar .page-navigation > .nav-item .submenu {
         display: none; }
         .horizontal-menu .bottom-navbar .page-navigation > .nav-item .submenu ul {
@@ -24825,3 +24825,37 @@ div.tagsinput {
 	  -ms-transform: translateX(-100%) rotate(-120deg);
 	  -o-transform: translateX(-100%) rotate(-120deg);
 	  transform: translateX(-100%) rotate(-120deg); } }
+
+/* Tabs*/
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #000;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+#tabs{
+    color: #000;
+}
+#tabs h6.section-title{
+    color: #000;
+}
+
+#tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #003398;
+    background-color: transparent;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 4px solid !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+#tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #003398;
+    font-size: 20px;
+}

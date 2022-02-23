@@ -5,11 +5,9 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="{% url 'OfficerCases' %}"><span class="iconify link-icon" data-icon="feather:file"></span> Case Files</a>
-        <a class="dropdown-item" href="#"><span class="iconify link-icon" data-icon="feather:folder"></span> Court Details</a>
+        <a class="dropdown-item" href="{% url 'OfficerCourtInfo' %}"><span class="iconify link-icon" data-icon="feather:folder"></span> Court Details</a>
         <a class="dropdown-item" href="{% url 'OfficerAccused' %}"><span class="iconify link-icon" data-icon="feather:user"></span> Accused Person</a>
-        <a class="dropdown-item" href="#"><span class="iconify link-icon" data-icon="feather:archive"></span> Records</a>
-        <a class="dropdown-item" href="#"><span class="iconify link-icon" data-icon="feather:clock"></span> Shifts</a>
         <a class="dropdown-item" href="{% url 'OfficerCells' %}"><span class="iconify link-icon" data-icon="feather:home"></span> Cell Details</a>
-        <a class="dropdown-item" href="#"><span class="iconify link-icon" data-icon="feather:file-text"></span> Documents</a>
+        <a class="dropdown-item" href="{% url 'OfficerDocs' %}"><span class="iconify link-icon" data-icon="feather:file-text"></span> Documents</a>
     </div>
 </div>

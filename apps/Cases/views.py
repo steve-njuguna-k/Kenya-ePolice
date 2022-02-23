@@ -5,7 +5,6 @@ from django.contrib import messages
 from apps.Accused.models import AccusedPerson
 from apps.Cases.forms import AddCaseForm, EditCaseForm
 from apps.Cases.models import Case
-from apps.Users.models import Profile
 
 # Create your views here.
 @login_required(login_url='Login')
@@ -76,12 +75,12 @@ def EditCase(request, id):
                 messages.success(request, '✅ Case Record Successfully Updated!')
                 return redirect('OfficerCases')
                 
-            else:
-                messages.error(request, '⚠️ Case Record Was Not Updated!')
-                return redirect('OfficerCases')
-
         else:
-            form = EditCaseForm(instance=request.user.profile)
+            messages.error(request, '⚠️ Case Record Was Not Updated!')
+            return redirect('OfficerCases')
+
+    else:
+        form = EditCaseForm(instance=request.user.profile)
 
     return redirect('OfficerCases')
 

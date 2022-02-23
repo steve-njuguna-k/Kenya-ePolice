@@ -8,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import update_session_auth_hash
+from apps.Accused.models import AccusedPerson
+from apps.Cases.models import Case
+from apps.Cells.models import Cell
+from apps.Courts.models import Court
 from apps.Users.forms import PasswordChangeForm, UpdateProfileForm, UpdateUserForm
 from apps.Users.models import Profile
 from .tokens import account_activation_token
@@ -224,4 +228,8 @@ def OCSDashboard(request):
 
 @login_required(login_url='Login')
 def OfficerDashboard(request):
-    return render(request, 'Officer Dashboard.html')
+    accused = AccusedPerson.objects.all().order_by('-date_created')
+    cases = Case.objects.all().order_by('-date_created')
+    courts = Court.objects.all().order_by('-date_created')
+    cells = Cell.objects.all().order_by('-date_created')
+    return render(request, 'Officer Dashboard.html', {'accused':accused, 'cases':cases, 'courts':courts, 'cells':cells})

@@ -22,6 +22,233 @@
                     </div>
                 </div>
 
+                <div class="row text-center">
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="py-3 text-primary">ARRESTED PEOPLE</h4>
+                        <h1 class="card-text">{{ accused|length }}</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="py-3 text-primary">CASE FILINGS</h4>
+                        <h1 class="card-text">{{ cases|length }}</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="py-3 text-primary">COURT FILINGS</h4>
+                        <h1 class="card-text">{{ courts|length }}</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Tabs -->
+                <section id="tabs">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-xs-12 ">
+                        <nav>
+                          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Arrested People</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Case Files</a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Court Rulings</a>
+                            <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">Cell Details</a>
+                          </div>
+                        </nav>
+                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="col-md-12 grid-margin stretch-card">
+                              <div class="card">
+                                              <div class="card-body">
+                                                  <div class="table-responsive">
+                                                      <table class="table table-hover mb-0">
+                                                          <thead>
+                                                              <tr>
+                                                              <th class="pt-0">#</th>
+                                                              <th class="pt-0">First Name</th>
+                                                              <th class="pt-0">Middle Name</th>
+                                                              <th class="pt-0">Last Name</th>
+                                                              <th class="pt-0">Gender</th>
+                                                              <th class="pt-0">ID No.</th>
+                                                              <th class="pt-0">Arrested On</th>
+                                                              <th class="pt-0">Arrest Status</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {% for person in accused %}
+                                                                  <tr>
+                                                                      <td>{{ person.arrest_number }}</td>
+                                                                      <td>{{ person.first_name }}</td>
+                                                                      <td>{{ person.middle_name }}</td>
+                                                                      <td>{{ person.last_name }}</td>
+                                                                      <td>{{ person.gender }}</span></td>
+                                                                      <td>{{ person.national_id }}</td>
+                                                                      <td>{{ person.arrested_on }}</td>
+                                                                      <td>
+                                                                          {% if person.arrest_status == 'Free' %}
+                                                                          <span class="badge badge-success">{{ person.arrest_status }}</span>
+                                                                          {% elif person.arrest_status == 'Convicted' %}
+                                                                          <span class="badge badge-danger">{{ person.arrest_status }}</span>
+                                                                          {% elif person.arrest_status == 'In Custody' %}
+                                                                          <span class="badge badge-warning">{{ person.arrest_status }}</span>
+                                                                          {% elif person.arrest_status == 'Out On Bond' %}
+                                                                          <span class="badge badge-secondary">{{ person.arrest_status }}</span>
+                                                                          {% else %}
+                                                                          <span class="badge badge-info">{{ person.arrest_status }}</span>
+                                                                          {% endif %}
+                                                                      </td>
+                                                                  </tr>
+                                                              {% endfor %}
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div> 
+                                            </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="col-md-12 grid-margin stretch-card">
+                              <div class="card">
+                                              <div class="card-body">
+                                                  <div class="table-responsive">
+                                                      <table class="table table-hover mb-0">
+                                                          <thead>
+                                                              <tr>
+                                                              <th class="pt-0">#</th>
+                                                              <th class="pt-0">Full Names</th>
+                                                              <th class="pt-0">Crime</th>
+                                                              <th class="pt-0">Location</th>
+                                                              <th class="pt-0">Start Date</th>
+                                                              <th class="pt-0">End Date</th>
+                                                              <th class="pt-0">Case Status</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {% for case in cases %}
+                                                                  <tr>
+                                                                      <td>{{ case.case_number }}</td>
+                                                                      <td>{{ case.accused_person }}</td>
+                                                                      <td>{{ case.crime_category }}</td>
+                                                                      <td>{{ case.arrest_location }}</span></td>
+                                                                      <td>{{ case.case_started_on }}</td>
+                                                                      <td>{{ case.case_concluded_on }}</td>
+                                                                      <td>
+                                                                          {% if case.case_status == 'Complete' %}
+                                                                          <span class="badge badge-success">{{ case.case_status }}</span>
+                                                                          {% elif case.case_status == 'Not Started' %}
+                                                                          <span class="badge badge-danger">{{ case.case_status }}</span>
+                                                                          {% elif case.case_status == 'Ongoing' %}
+                                                                          <span class="badge badge-warning">{{ case.case_status }}</span>
+                                                                          {% endif %}
+                                                                      </td>
+                                                                  </tr>
+                                                              {% endfor %}
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div> 
+                                            </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="col-md-12 grid-margin stretch-card">
+                              <div class="card">
+                                              <div class="card-body">
+                                                  <div class="table-responsive">
+                                                      <table class="table table-hover mb-0">
+                                                          <thead>
+                                                              <tr>
+                                                              <th class="pt-0">#</th>
+                                                              <th class="pt-0">First Name</th>
+                                                              <th class="pt-0">Middle Name</th>
+                                                              <th class="pt-0">Last Name</th>
+                                                              <th class="pt-0">Court of Law</th>
+                                                              <th class="pt-0">Scheduled On</th>
+                                                              <th class="pt-0">Verdict</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {% for court in courts %}
+                                                                  <tr>
+                                                                      <td>{{ court.court_number }}</td>
+                                                                      <td>{{ court.accused_person.first_name }}</td>
+                                                                      <td>{{ court.accused_person.middle_name }}</td>
+                                                                      <td>{{ court.accused_person.last_name }}</td>
+                                                                      <td>{{ court.court }}</td>
+                                                                      <td>{{ court.scheduled_on }}</td>
+                                                                      <td>
+                                                                          {% if court.court_verdict == 'Guilty' %}
+                                                                          <span class="badge badge-danger">{{ court.court_verdict }}</span>
+                                                                          {% elif court.court_verdict == 'Undetermined' %}
+                                                                          <span class="badge badge-secondary">{{ court.court_verdict }}</span>
+                                                                          {% elif court.court_verdict == 'Not Guilty' %}
+                                                                          <span class="badge badge-success">{{ court.court_verdict }}</span>
+                                                                          {% endif %}
+                                                                      </td>
+                                                                  </tr>
+                                                              {% endfor %}
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div> 
+                                            </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                            <div class="col-md-12 grid-margin stretch-card">
+                              <div class="card">
+                                              <div class="card-body">
+                                                  <div class="table-responsive">
+                                                      <table class="table table-hover mb-0">
+                                                          <thead>
+                                                              <tr>
+                                                              <th class="pt-0">#</th>
+                                                              <th class="pt-0">First Name</th>
+                                                              <th class="pt-0">Middle Name</th>
+                                                              <th class="pt-0">Last Name</th>
+                                                              <th class="pt-0">Occupied On</th>
+                                                              <th class="pt-0">Vaccated On</th>
+                                                              <th class="pt-0">Status</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody>
+                                                              {% for cell in cells %}
+                                                                  <tr>
+                                                                      <td>{{ cell.cell_number }}</td>
+                                                                      <td>{{ cell.accused_person.first_name }}</td>
+                                                                      <td>{{ cell.accused_person.middle_name }}</td>
+                                                                      <td>{{ cell.accused_person.last_name }}</td>
+                                                                      <td>{{ cell.occupied_on }}</span></td>
+                                                                      <td>{{ cell.vaccated_on }}</td>
+                                                                      <td>
+                                                                          {% if cell.cell_status == 'Occupied' %}
+                                                                          <span class="badge badge-danger">{{ cell.cell_status }}</span>
+                                                                          {% elif cell.cell_status == 'Empty' %}
+                                                                          <span class="badge badge-success">{{ cell.cell_status }}</span>
+                                                                          {% endif %}
+                                                                      </td>
+                                                                  </tr>
+                                                              {% endfor %}
+                                                          </tbody>
+                                                      </table>
+                                                  </div>
+                                              </div> 
+                                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <!-- ./Tabs -->
             </div>
         
         </div>
