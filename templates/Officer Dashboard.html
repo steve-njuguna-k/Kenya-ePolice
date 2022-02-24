@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="row text-center">
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <div class="card" style="border-color: #dd0000;">
                       <div class="card-body">
                         <h4 class="py-3 text-dark">ARRESTED PEOPLE</h4>
@@ -31,7 +31,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <div class="card" style="border-color: #003398;">
                       <div class="card-body">
                         <h4 class="py-3 text-dark">CASE FILINGS</h4>
@@ -39,11 +39,19 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                     <div class="card" style="border-color: #fcb400;">
                       <div class="card-body">
                         <h4 class="py-3 text-dark">COURT FILINGS</h4>
                         <h1 class="card-text">{{ courts|length }}</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="card" style="border-color: #000000;">
+                      <div class="card-body">
+                        <h4 class="py-3 text-dark">CELL OCCUPANCY</h4>
+                        <h1 class="card-text">{{ cells|length }}</h1>
                       </div>
                     </div>
                   </div>

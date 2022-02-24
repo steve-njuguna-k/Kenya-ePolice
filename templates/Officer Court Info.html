@@ -37,7 +37,9 @@
                             {% for message in messages %} 
                             <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
                                 {{message}}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
                             </div>
                             {% endfor %} 
                         {% endif %}
@@ -78,10 +80,10 @@
                                                         {% endif %}
                                                     </td>
                                                     <td>
-                                                        <a href="{% url 'ViewCellDetails' court.id %}" data-toggle="modal" data-target="#exampleModal2{{ court.id }}">
+                                                        <a href="{% url 'ViewCourtInfoDetails' court.id %}" data-toggle="modal" data-target="#exampleModal2{{ court.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye icon-sm mr-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> <span class=""></span>
                                                         </a>
-                                                        <a href="{% url 'EditCellInfo' court.id %}" data-toggle="modal" data-target="#exampleModal3{{ court.id }}">
+                                                        <a href="{% url 'EditCourtInfo' court.id %}" data-toggle="modal" data-target="#exampleModal3{{ court.id }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 icon-sm mr-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> <span class=""></span>
                                                         </a>
                                                         <a href="#" data-toggle="modal" data-target="#exampleModal4{{ court.id }}">
@@ -303,13 +305,13 @@
                                                 {{ court.court_verdict }}
                                             </option>
                                             {% if court.court_verdict != 'Undetermined' %}
-                                            <option value="Occupied">Undetermined</option>
+                                            <option value="Undetermined">Undetermined</option>
                                             {% endif %}
                                             {% if court.court_verdict != 'Guilty' %}
-                                            <option value="Empty">Guilty</option>
+                                            <option value="Guilty">Guilty</option>
                                             {% endif %}
                                             {% if court.court_verdict != 'Not Guilty' %}
-                                            <option value="Empty">Not Guilty</option>
+                                            <option value="Not Guilty">Not Guilty</option>
                                             {% endif %}
                                         </select>
                                         <label for="floatingSelect" style="color: #000000;">Court Verdict</label>

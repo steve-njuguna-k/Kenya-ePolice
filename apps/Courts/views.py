@@ -40,7 +40,7 @@ def AddCourtInfo(request):
     return redirect('OfficerCourtInfo')
 
 def EditCourtInfo(request, id):
-    court = Court.objects.get(id=id)
+    court_details = Court.objects.get(id=id)
 
     if request.method == 'POST':
         form = EditCourtInfoForm(request.POST)
@@ -52,25 +52,26 @@ def EditCourtInfo(request, id):
             court = form.cleaned_data['court']
             court_verdict = form.cleaned_data['court_verdict']
             scheduled_on = form.cleaned_data['scheduled_on']
+            print(scheduled_on)
 
-            court.court_number = court_number
-            court.accused_person = AccusedPerson.objects.get(pk=int(accused_person))
-            court.court = court
-            court.court_verdict = court_verdict
-            court.scheduled_on = scheduled_on
-            court.created_by = request.user.profile
+            court_details.court_number = court_number
+            court_details.accused_person = AccusedPerson.objects.get(pk=int(accused_person))
+            court_details.court = court
+            court_details.court_verdict = court_verdict
+            court_details.scheduled_on = scheduled_on
+            court_details.created_by = request.user.profile
 
             if not context['has_error']:
-                court.save()
+                court_details.save()
                 messages.success(request, '✅ Court Record Successfully Updated!')
                 return redirect('OfficerCourtInfo')
                     
-            else:
-                messages.error(request, '⚠️ Court Record Was Not Updated!')
-                return redirect('OfficerCourtInfo')
-    
         else:
-            form = EditCourtInfoForm(instance=request.user.profile)
+            messages.error(request, '⚠️ Court Record Was Not Updated!')
+            return redirect('EditCourtInfo', id=id)
+    
+    else:
+        form = EditCourtInfoForm()
 
     return redirect('OfficerCourtInfo')
 

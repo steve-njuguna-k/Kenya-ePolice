@@ -9,7 +9,7 @@ GENDER = [
 ARREST_STATUS = [
     ('Free', ('Free')),
     ('Convicted', ('Convicted')),
-    ('In Cutody', ('In Cutody')),
+    ('In Custody', ('In Custody')),
     ('Out On Bond', ('Out On Bond')),
     ('Out On Cash Bail', ('Out On Cash Bail')),
 ]

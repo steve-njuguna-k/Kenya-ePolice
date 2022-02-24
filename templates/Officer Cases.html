@@ -37,7 +37,7 @@
                             {% for message in messages %} 
                             <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
                                 {{message}}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                             </div>
                             {% endfor %} 
                         {% endif %}
@@ -422,7 +422,7 @@
                                             <option value="Complete">Complete</option>
                                             {% endif %}
                                             {% if case.case_status != 'Ongoing' %}
-                                            <option value="Ongoing">Complete</option>
+                                            <option value="Ongoing">Ongoing</option>
                                             {% endif %}
                                             {% if case.case_status != 'Not Started' %}
                                             <option value="Not Started">Not Started</option>

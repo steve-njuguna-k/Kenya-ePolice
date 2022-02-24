@@ -1,6 +1,5 @@
 from django import forms
 from apps.Accused.models import ARREST_STATUS, GENDER, AccusedPerson
-from apps.Cases.models import Case
 
 STATIONS = [
     ("Central Police Station", "Central Police Station"),
@@ -112,7 +111,7 @@ class AddAccusedForm(forms.ModelForm):
         fields = ['arrest_number', 'first_name', 'middle_name', 'last_name', 'date_of_birth', 'gender', 'national_id', 'profile_picture', 'arrest_status', 'arrested_on']
 
 
-class EditAccusedForm(forms.ModelForm):
+class EditAccusedForm(forms.Form):
     arrest_number = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'arrest_number', 'class': 'form-control mb-4', 'name': 'arrest_number', 'placeholder': 'Arrest Number'}))
     first_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'first_name', 'class': 'form-control mb-4', 'name': 'first_name', 'placeholder': 'First Name'}))
     middle_name = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'middle_name', 'class': 'form-control mb-4', 'name': 'middle_name', 'placeholder': 'Middle Name'}))

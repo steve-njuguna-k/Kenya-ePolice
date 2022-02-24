@@ -400,7 +400,7 @@
                                     <div class="form-floating mb-3">
                                         <select class="form-select" name="arrest_status" id="floatingSelect" aria-label="Floating label select example" value="" required>
                                             <option value="{{ person.arrest_status }}">
-                                                {% if person.gender.selected %} selected {% endif %}
+                                                {% if person.arrest_status.selected %} selected {% endif %}
                                                 {{ person.arrest_status }}
                                             </option>
                                             {% if person.arrest_status != 'Free' %}
