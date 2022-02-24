@@ -233,3 +233,13 @@ def OfficerDashboard(request):
     courts = Court.objects.all().order_by('-date_created')
     cells = Cell.objects.all().order_by('-date_created')
     return render(request, 'Officer Dashboard.html', {'accused':accused, 'cases':cases, 'courts':courts, 'cells':cells})
+
+def Search(request):
+    if request.method == 'POST':
+        search = request.POST['Search']
+        accused_first_name = AccusedPerson.objects.filter(first_name__icontains = search).all()
+        accused_middle_name = AccusedPerson.objects.filter(middle_name__icontains = search).all()
+        accused_last_name = AccusedPerson.objects.filter(last_name__icontains = search).all()
+        return render(request, 'Search Results.html', {'search':search, 'accused_first_name':accused_first_name, 'accused_middle_name':accused_middle_name, 'accused_last_name':accused_last_name})
+    else:
+        return render(request, 'Search Results.html')

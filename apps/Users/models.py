@@ -92,7 +92,7 @@ class Profile(models.Model):
     date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated')
     
     def __str__(self):
-        return str(self.user.username)
+        return str(self.user.username + ' - ' + self.user.first_name + ' ' + self.middle_name + ' ' + self.user.last_name)
     
     class Meta:
         verbose_name_plural = 'Officer Profiles'
