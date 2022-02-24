@@ -1,5 +1,6 @@
 from django.db import models
 from apps.Users.models import Profile
+from cloudinary.models import CloudinaryField
 
 GENDER = [
     ('Male', ('Male')),
@@ -23,8 +24,8 @@ class AccusedPerson(models.Model):
     date_of_birth = models.DateField(verbose_name='Date Of Birth')
     gender = models.CharField(choices=GENDER, max_length=10, verbose_name='Gender')
     national_id = models.CharField(max_length=10, verbose_name='National ID')
-    # profile_picture = CloudinaryField('accused_persons_profile_picture')
-    profile_picture = models.ImageField(upload_to='Accused-Profile-Pics', verbose_name='Accused Person Profile Pics')
+    profile_picture = CloudinaryField('accused_persons_profile_picture')
+    # profile_picture = models.ImageField(upload_to='Accused-Profile-Pics', verbose_name='Accused Person Profile Pics')
     arrest_status = models.CharField(choices=ARREST_STATUS, max_length=50, verbose_name='Arrest Status')
     arrested_on = models.DateField(verbose_name='Arrested On')
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Police Officer')

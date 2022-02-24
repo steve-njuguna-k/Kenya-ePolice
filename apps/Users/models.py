@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 STATIONS = [
     ("Central Police Station", "Central Police Station"),
@@ -82,8 +83,8 @@ class Profile(models.Model):
     middle_name = models.CharField(max_length=10, verbose_name='Middle Name')
     bio = models.TextField(max_length=254, verbose_name='Bio')
     national_id = models.CharField(max_length=10, verbose_name='National ID')
-    # profile_picture = CloudinaryField('profile_picture')
-    profile_picture = models.ImageField(upload_to='Profile-Pics', verbose_name='Profile-Pics')
+    profile_picture = CloudinaryField('profile_picture')
+    # profile_picture = models.ImageField(upload_to='Profile-Pics', verbose_name='Profile-Pics')
     police_station = models.CharField(choices=STATIONS, max_length=150, verbose_name='Police Station', null=True, blank=True)
     role = models.CharField(choices=ROLES, max_length=100, verbose_name='Role')
     county = models.CharField(choices=COUNTIES, max_length=100, verbose_name='County')
