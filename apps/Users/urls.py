@@ -18,9 +18,6 @@ urlpatterns = [
     path('officer/dashboard/profile/edit', views.OfficerEditProfile, name="OfficerEditProfile"),
     path('officer/dashboard/profile', views.OfficerProfile, name="OfficerProfile"),
 
-    # Officer Dashboard URLs
-    path('ocs/dashboard', views.OCSDashboard, name="OCSDashboard"),
-
     # Search
     path('officer/dashboard/search', views.Search, name="Search"),
 

@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.encoding import force_str, force_bytes
@@ -128,16 +128,8 @@ def Login(request):
             return redirect('Login')
 
         if user is not None:
-            user_obj = User.objects.get(username=username)
-            user_id = user_obj.id
-            profile_obj = Profile.objects.filter(user=user_id)
-            for item in profile_obj:
-                if item.role == 'Police Officer':
-                    login(request, user)
-                    return redirect('OfficerDashboard')
-                else:
-                    login(request, user)
-                    return redirect('OCSDashboard')
+            login(request, user)
+            return redirect('OfficerDashboard')
 
     return render(request, 'Login.html')
 
@@ -221,10 +213,6 @@ def OfficerProfile(request):
     profile = request.user
     profile_details = Profile.objects.get(user = profile.id)
     return render(request, 'Officer Profile.html', {'profile':profile, 'profile_details':profile_details})
-
-@login_required(login_url='Login')
-def OCSDashboard(request):
-    return render(request, 'OCS Dashboard.html')
 
 @login_required(login_url='Login')
 def OfficerDashboard(request):
