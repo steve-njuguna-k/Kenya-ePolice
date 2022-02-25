@@ -17,7 +17,6 @@ STATIONS = [
 
 ROLES = [
     ("Police Officer", "Police Officer"),
-    ("Officer Commanding Station", "Officer Commanding Station"),
 ]
 
 COUNTIES = [
