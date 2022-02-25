@@ -54,7 +54,7 @@ def EditArrestedPerson(request, id):
             date_of_birth = form.cleaned_data['date_of_birth']
             gender = form.cleaned_data['gender']
             national_id = form.cleaned_data['national_id']
-            profile_picture = form.cleaned_data['profile_picture']
+            # profile_picture = form.cleaned_data['profile_picture']
             arrest_status = form.cleaned_data['arrest_status']
             arrested_on = form.cleaned_data['arrested_on']
 
@@ -65,7 +65,7 @@ def EditArrestedPerson(request, id):
             person.date_of_birth = date_of_birth
             person.gender = gender
             person.national_id = national_id
-            person.profile_picture = profile_picture
+            # person.profile_picture = profile_picture
             person.arrest_status = arrest_status
             person.arrested_on = arrested_on
             person.created_by = request.user.profile
