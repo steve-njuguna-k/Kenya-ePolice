@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.Courts import views
+from Courts import views
 
 urlpatterns = [
     path('officer/dashboard/court/info', views.OfficerCourtInfo, name="OfficerCourtInfo"),

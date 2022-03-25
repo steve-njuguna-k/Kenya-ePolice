@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.Cells import views
+from Cells import views
 
 urlpatterns = [
     path('officer/dashboard/cells', views.OfficerCells, name="OfficerCells"),

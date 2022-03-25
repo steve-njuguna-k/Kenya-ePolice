@@ -2,16 +2,17 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from apps.Accused.models import AccusedPerson
-from apps.Courts.forms import AddCourtInfoForm, EditCourtInfoForm
-from apps.Courts.models import Court
-from apps.Cases.models import Profile
+from Accused.models import AccusedPerson
+from Courts.forms import AddCourtInfoForm, EditCourtInfoForm
+from Courts.models import Court
+from Cases.models import Profile
 
 # Create your views here.
 @login_required(login_url='Login')
 def OfficerCourtInfo(request):
     form = AddCourtInfoForm()
-    profile = request.user
+    username = request.user
+    profile = Profile.objects.get(user=username.id)
     courts = Court.objects.filter(created_by=profile.id).all().order_by('-date_created')
     return render(request, 'Officer Court Info.html', {'courts':courts, 'form':form})
 

@@ -2,16 +2,17 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from apps.Accused.models import AccusedPerson
-from apps.Cells.forms import AddCellForm, EditCellForm
-from apps.Cells.models import Cell
-from apps.Users.models import Profile
+from Accused.models import AccusedPerson
+from Cells.forms import AddCellForm, EditCellForm
+from Cells.models import Cell
+from Users.models import Profile
 
 # Create your views here.
 @login_required(login_url='Login')
 def OfficerCells(request):
     form = AddCellForm()
-    profile = request.user
+    username = request.user
+    profile = Profile.objects.get(user=username.id)
     cells = Cell.objects.filter(created_by=profile.id).all().order_by('-date_created')
     return render(request, 'Officer Cells.html', {'cells':cells, 'form':form})
 

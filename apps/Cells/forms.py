@@ -1,6 +1,6 @@
 from django import forms
-from apps.Accused.models import AccusedPerson
-from apps.Cells.models import Cell
+from Accused.models import AccusedPerson
+from Cells.models import Cell
 
 CELL_STATUS = [
     ('Occupied', ('Occupied')),

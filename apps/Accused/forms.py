@@ -1,5 +1,5 @@
 from django import forms
-from apps.Accused.models import ARREST_STATUS, GENDER, AccusedPerson
+from Accused.models import ARREST_STATUS, GENDER, AccusedPerson
 
 STATIONS = [
     ("Central Police Station", "Central Police Station"),

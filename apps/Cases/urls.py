@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.Cases import views
+from Cases import views
 
 urlpatterns = [
     path('officer/dashboard/cases', views.OfficerCases, name="OfficerCases"),

@@ -1,6 +1,6 @@
 from django import forms
-from apps.Accused.models import AccusedPerson
-from apps.Cases.models import Case
+from Accused.models import AccusedPerson
+from Cases.models import Case
 
 STATIONS = [
     ("Central Police Station", "Central Police Station"),

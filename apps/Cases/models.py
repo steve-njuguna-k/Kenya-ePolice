@@ -1,6 +1,6 @@
 from django.db import models
-from apps.Accused.models import AccusedPerson
-from apps.Users.models import Profile
+from Accused.models import AccusedPerson
+from Users.models import Profile
 
 STATIONS = [
     ("Central Police Station", "Central Police Station"),

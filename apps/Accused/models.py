@@ -1,5 +1,5 @@
 from django.db import models
-from apps.Users.models import Profile
+from Users.models import Profile
 from cloudinary.models import CloudinaryField
 
 GENDER = [

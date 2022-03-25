@@ -1,6 +1,6 @@
 from django import forms
-from apps.Accused.models import AccusedPerson
-from apps.Courts.models import COURTS, VERDICT, Court
+from Accused.models import AccusedPerson
+from Courts.models import COURTS, VERDICT, Court
 
 class AddCourtInfoForm(forms.Form):
     court_number = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'id': 'court_number', 'class': 'form-control mb-4', 'name': 'court_number', 'placeholder': 'Court Number'}))

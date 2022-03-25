@@ -1,7 +1,7 @@
 import imp
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from apps.Docs.models import Docs
+from Docs.models import Docs
 
 # Create your views here.
 @login_required(login_url='Login')

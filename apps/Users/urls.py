@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.Users import views
+from Users import views
 from django.conf.urls.static import static
 from Core import settings
 
@@ -10,7 +10,6 @@ urlpatterns = [
     path('register', views.Register, name="Register"),
     path('login', views.Login, name="Login"),
     path('logout', views.Logout, name="Logout"),
-    path('activateuser/<uidb64>/<token>',views.ActivateAccount, name = 'ActivateAccount'),
 
     # Officer Dashboard URLs
     path('officer/dashboard', views.OfficerDashboard, name="OfficerDashboard"),

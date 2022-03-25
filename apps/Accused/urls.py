@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.Accused import views
+from Accused import views
 from django.conf.urls.static import static
 from Core import settings
 
