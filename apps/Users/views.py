@@ -216,10 +216,11 @@ def OfficerProfile(request):
 
 @login_required(login_url='Login')
 def OfficerDashboard(request):
-    accused = AccusedPerson.objects.all().order_by('-date_created')
-    cases = Case.objects.all().order_by('-date_created')
-    courts = Court.objects.all().order_by('-date_created')
-    cells = Cell.objects.all().order_by('-date_created')
+    profile = request.user
+    accused = AccusedPerson.objects.filter(created_by=profile.id).order_by('-date_created').all()
+    cases = Case.objects.filter(created_by=profile.id).order_by('-date_created').all()
+    courts = Court.objects.filter(created_by=profile.id).order_by('-date_created').all()
+    cells = Cell.objects.filter(created_by=profile.id).order_by('-date_created').all()
     return render(request, 'Officer Dashboard.html', {'accused':accused, 'cases':cases, 'courts':courts, 'cells':cells})
 
 def Search(request):
