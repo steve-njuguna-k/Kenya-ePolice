@@ -216,7 +216,8 @@ def OfficerProfile(request):
 
 @login_required(login_url='Login')
 def OfficerDashboard(request):
-    profile = request.user
+    username = request.user
+    profile = Profile.objects.get(user=username.id)
     accused = AccusedPerson.objects.filter(created_by=profile.id).order_by('-date_created').all()
     cases = Case.objects.filter(created_by=profile.id).order_by('-date_created').all()
     courts = Court.objects.filter(created_by=profile.id).order_by('-date_created').all()
