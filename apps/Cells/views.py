@@ -11,7 +11,8 @@ from apps.Users.models import Profile
 @login_required(login_url='Login')
 def OfficerCells(request):
     form = AddCellForm()
-    cells = Cell.objects.all().order_by('-date_created')
+    profile = request.user
+    cells = Cell.objects.filter(created_by=profile.id).all().order_by('-date_created')
     return render(request, 'Officer Cells.html', {'cells':cells, 'form':form})
 
 def AddCellInfo(request):

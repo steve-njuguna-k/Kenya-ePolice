@@ -9,7 +9,8 @@ from apps.Accused.models import AccusedPerson
 @login_required(login_url='Login')
 def OfficerAccused(request):
     form = AddAccusedForm()
-    accused = AccusedPerson.objects.all().order_by('-date_created')
+    profile = request.user
+    accused = AccusedPerson.objects.filter(created_by=profile.id).all().order_by('-date_created')
     return render(request, 'Officer Accused.html', {'accused':accused, 'form':form})
 
 def AddArrestedPerson(request):

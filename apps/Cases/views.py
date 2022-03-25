@@ -10,7 +10,8 @@ from apps.Cases.models import Case
 @login_required(login_url='Login')
 def OfficerCases(request):
     form = AddCaseForm()
-    cases = Case.objects.all().order_by('-date_created')
+    profile = request.user
+    cases = Case.objects.filter(created_by=profile.id).all().order_by('-date_created')
     return render(request, 'Officer Cases.html', {'cases':cases, 'form':form})
 
 def AddCase(request):

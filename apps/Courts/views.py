@@ -11,7 +11,8 @@ from apps.Cases.models import Profile
 @login_required(login_url='Login')
 def OfficerCourtInfo(request):
     form = AddCourtInfoForm()
-    courts = Court.objects.all().order_by('-date_created')
+    profile = request.user
+    courts = Court.objects.filter(created_by=profile.id).all().order_by('-date_created')
     return render(request, 'Officer Court Info.html', {'courts':courts, 'form':form})
 
 def AddCourtInfo(request):
